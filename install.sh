@@ -244,7 +244,7 @@ VOICE_IDENT: False
 
 EOF
 ##
-cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/
+cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
 cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
