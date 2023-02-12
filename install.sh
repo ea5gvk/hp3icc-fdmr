@@ -142,8 +142,20 @@ else
   
 EOF
 # 
-cp /opt/extra-1.sh /opt/extra-2.sh
-
+fi
+if [ -f "/opt/extra-2.sh" ]
+then
+  echo "found file"
+else
+  sudo cat > /opt/extra-2.sh <<- "EOF"
+######################################################################
+# Coloque en este archivo, cualquier instruccion shell adicional que # 
+# quierre se realice al finalizar la actualizacion.                  #
+######################################################################
+ 
+  
+EOF
+# 
 fi
 sudo chmod +x /opt/extra-*
 
@@ -792,6 +804,8 @@ EOF
 ###
 chmod +x /bin/menu-fdmr
 ln -s /bin/menu-fdmr /bin/MENU-FDMR
+sh /opt/extra-1.sh
+sh /opt/extra-2.sh
 #############################
 sudo systemctl daemon-reload
 sudo systemctl start freedmr.service
