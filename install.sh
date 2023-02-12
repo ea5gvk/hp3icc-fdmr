@@ -787,7 +787,7 @@ sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
 sudo systemctl disable http.server-fdmr.service;; 
 9)
-sh -c "$(curl -fsSL https://gitlab.com/hp3icc/FDMR+/-/raw/main/update.sh)";
+sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
 esac
 done
 exit 0
