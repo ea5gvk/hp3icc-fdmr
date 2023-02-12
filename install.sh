@@ -64,6 +64,14 @@ then
  #echo "found file"
 fi
    mkdir /var/log/FreeDMR
+ if [ -f "/bin/menu-fdmr" ];
+then
+   rm  /bin/menu-fdmr
+ #echo "found file"
+else
+ echo "file not found"
+
+fi
 ########################
 if [ -f "/opt/obp.txt" ]
 then
@@ -675,7 +683,7 @@ Restart=on-abort
 WantedBy=multi-user.target
 EOF
 #
-sudo cat > /bin/menu <<- "EOF"
+sudo cat > /bin/menu-fdmr <<- "EOF"
 #!/bin/bash
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC FDMR+" --menu "move up or down with the keyboard arrows and select your option by pressing enter:" 23 56 13 \
@@ -742,8 +750,8 @@ done
 exit 0
 EOF
 ###
-chmod +x /bin/menu
-ln -s /bin/menu /bin/MENU
+chmod +x /bin/menu-fdmr
+ln -s /bin/menu-fdmr /bin/MENU-FDMR
 #############################
 sudo systemctl daemon-reload
 sudo systemctl start freedmr.service
@@ -755,4 +763,5 @@ sudo systemctl enable fdmr_mon.service
 sudo systemctl start fdmrparrot.service
 sudo systemctl enable fdmrparrot.service
 sudo systemctl start http.server-fdmr.service
-sudo systemctl enable http.server-fdmr.service	
+sudo systemctl enable http.server-fdmr.service
+menu-fdmr	
