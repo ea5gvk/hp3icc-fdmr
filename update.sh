@@ -97,10 +97,136 @@ exit 0
 
 
 EOF
-##########################
-wget https://gitlab.com/hp3icc/fdmr/-/raw/main/fdmr-update.sh -O /opt/fdmr-update.sh
-wget https://gitlab.com/hp3icc/fdmr/-/raw/main/fdmr-update.sh -O /opt/monitor-update.sh
-#######
+######################################### FreeDMR Update  ###############################################################
+sudo cat > /opt/fdmr-update.sh <<- "EOF"
+#!/bin/bash
+variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | tail -c 5)
+sudo systemctl stop freedmr.service
+sudo systemctl stop proxy.service
+sudo systemctl stop fdmrparrot.service
+rm -r /opt/FreeDMR
+cd /opt
+git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
+sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
+cd FreeDMR
+mkdir config
+mkdir /var/log/FreeDMR
+chmod +x /opt/FreeDMR/install.sh
+./install.sh
+sudo cat > /opt/conf.txt <<- "EOF"
+  
+[D-APRS]
+MODE: MASTER
+ENABLED: True
+REPEAT: False
+MAX_PEERS: 1
+EXPORT_AMBE: False
+IP:
+PORT: 52555
+PASSPHRASE:
+GROUP_HANGTIME: 0
+USE_ACL: True
+REG_ACL: DENY:1
+SUB_ACL: DENY:1
+TGID_TS1_ACL: PERMIT:ALL
+TGID_TS2_ACL: PERMIT:ALL
+DEFAULT_UA_TIMER: 10
+SINGLE_MODE: False
+VOICE_IDENT: False
+TS1_STATIC:
+TS2_STATIC:
+DEFAULT_REFLECTOR: 0
+ANNOUNCEMENT_LANGUAGE: es_ES
+GENERATOR: 2
+ALLOW_UNREG_ID: True
+PROXY_CONTROL: False
+OVERRIDE_IDENT_TG:
+
+[EchoTest]
+MODE: PEER
+ENABLED: True
+LOOSE: True
+EXPORT_AMBE: False
+IP: 
+#127.0.0.1
+PORT: 49060
+MASTER_IP: 127.0.0.1
+MASTER_PORT: 49061
+PASSPHRASE: passw0rd
+CALLSIGN: ECHOTEST
+RADIO_ID: 9990
+RX_FREQ: 449000000
+TX_FREQ: 444000000
+TX_POWER: 25
+COLORCODE: 1
+SLOTS: 3
+LATITUDE: 38.0000
+LONGITUDE: -095.0000
+HEIGHT: 75
+LOCATION: Local Parrot
+DESCRIPTION: This is a cool repeater
+URL: www.w1abc.org
+SOFTWARE_ID: 20170620
+PACKAGE_ID: MMDVM_HBlink
+GROUP_HANGTIME: 3
+OPTIONS:
+#TS2=9990;DIAL=0;VOICE=0;TIMER=0
+USE_ACL: True
+SUB_ACL: DENY:1
+TGID_TS1_ACL: DENY:ALL
+TGID_TS2_ACL: PERMIT:9990
+TS1_STATIC:
+TS2_STATIC:9990
+DEFAULT_REFLECTOR: 0
+ANNOUNCEMENT_LANGUAGE: en_GB
+GENERATOR: 0
+DEFAULT_UA_TIMER: 999
+SINGLE_MODE: True
+VOICE_IDENT: False
+
+EOF
+##
+cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
+cd /opt/
+cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
+sudo sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
+sudo sed -i 's/INFO/DEBUG/' /opt/FreeDMR/config/FreeDMR.cfg
+sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/config/FreeDMR.cfg
+sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/FreeDMR/config/FreeDMR.cfg
+sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
+#sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
+#sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
+
+rm /opt/conf.txt
+rm /opt/FreeDMR-SAMPLE.cfg
+
+cd /opt/FreeDMR/
+mv loro.cfg /opt/FreeDMR/playback.cfg
+sudo sed -i 's/54915/49061/' /opt/FreeDMR/playback.cfg
+cat /opt/rules.txt >> /opt/FreeDMR/config/rules.py
+
+cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
+cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
+cp /opt/FDMR-Monitor/proxy/proxy_db.py /opt/FreeDMR/proxy_db.py
+
+sudo chmod +x /opt/FreeDMR/*.py
+sudo chmod +x /opt/FreeDMR/config/*.py
+
+sudo systemctl daemon-reload
+sudo systemctl start proxy.service
+sudo systemctl start freedmr.service
+sudo systemctl start fdmrparrot.service
+sudo systemctl restart fdmr_mon.service
+######
+
+
+EOF
+######################################### FDMR-Monitor Update  ###############################################################
+sudo cat > monitor-update.sh <<- "EOF"
+
+EOF
+
+##########################################  End Update Files   ##############################################################
 sudo chmod +x /opt/fdmr-update.sh
 sudo chmod +x /opt/monitor-update.sh
 sudo chmod +x /bin/menu*
