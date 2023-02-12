@@ -203,7 +203,6 @@ sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/Fre
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
 sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 
-
 rm /opt/conf.txt
 rm /opt/FreeDMR-SAMPLE.cfg
 
@@ -211,6 +210,7 @@ cd /opt/FreeDMR/
 mv loro.cfg /opt/FreeDMR/playback.cfg
 sudo sed -i 's/54915/49061/' /opt/FreeDMR/playback.cfg
 sudo cat /opt/rules.txt >> /opt/FreeDMR/config/rules.py
+sudo chmod +x  /opt/FreeDMR/config/*
 
 cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
@@ -218,6 +218,7 @@ cp /opt/FDMR-Monitor/proxy/proxy_db.py /opt/FreeDMR/proxy_db.py
 
 sudo chmod +x /opt/FreeDMR/*.py
 sudo chmod +x /opt/FreeDMR/config/*.py
+sh /opt/extra-1.sh
 
 sudo systemctl daemon-reload
 sudo systemctl start proxy.service
