@@ -746,6 +746,8 @@ chmod +x /bin/menu
 ln -s /bin/menu /bin/MENU
 #############################
 sudo systemctl daemon-reload
+sudo systemctl start freedmr.service
+sudo systemctl enable freedmr.service
 sudo systemctl start proxy.service
 sudo systemctl enable proxy.service
 sudo systemctl start fdmr_mon.service
