@@ -230,7 +230,7 @@ sudo systemctl restart fdmr_mon.service
 
 EOF
 ######################################### FDMR-Monitor Update  ###############################################################
-sudo cat > monitor-update.sh <<- "EOFB1"
+sudo cat > /opt/monitor-update.sh <<- "EOFB1"
 #!/bin/bash
 variable1=$(grep "REPORT_NAME =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable2=$(grep "THEME_COLOR =" /opt/FDMR-Monitor/fdmr-mon.cfg)
