@@ -186,6 +186,11 @@ VOICE_IDENT: False
 
 EOF
 ##
+if [ -z "$variable" ]
+then variable=0000
+
+fi
+#
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
 sudo cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
