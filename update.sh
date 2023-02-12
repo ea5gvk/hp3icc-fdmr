@@ -1,4 +1,5 @@
 #!/bin/bash
+cd /
 sudo cat > /bin/menu-update <<- "EOF"
 #!/bin/bash
 while : ; do
