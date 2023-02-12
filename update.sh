@@ -187,11 +187,6 @@ mkdir config
 mkdir /var/log/FreeDMR
 chmod +x /opt/FreeDMR/install.sh
 ./install.sh
-
-if [ -z "$variable" ]
-then variable=0000
-
-fi
 #
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
@@ -200,9 +195,13 @@ sudo sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/INFO/DEBUG/' /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/FreeDMR/config/FreeDMR.cfg
-sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 #sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
+if [ -z "$variable" ]
+then variable=0000
+
+fi
+sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 
 rm /opt/conf.txt
 rm /opt/FreeDMR-SAMPLE.cfg
