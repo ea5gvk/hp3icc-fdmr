@@ -52,6 +52,17 @@ then
  #echo "found file"
 
 fi
+if [ -f "/opt/FreeDMR/config/FreeDMR.cfg" ];
+then
+   variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | grep -Eo '[0-9]{1,9}')
+ else
+  echo "id not found"
+
+fi
+if [ -z "$variable" ]
+then variable=0000
+
+fi
 if [ -d "/opt/FreeDMR" ]
 then
    rm -r /opt/FreeDMR
@@ -98,7 +109,7 @@ fi
 ######################
 if [ -f "/opt/rules.txt" ]
 then
-   echo "found file"
+   echo "rules found"
 else
  sudo cat > /opt/rules.txt <<- "EOF"
 BRIDGES = {
@@ -169,7 +180,7 @@ sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
 cd FreeDMR
 mkdir config
 mkdir /var/log/FreeDMR
-chmod +x /opt/FreeDMR/install.sh
+sudo chmod +x /opt/FreeDMR/*
 ./install.sh
 sudo cat > /opt/conf.txt <<- "EOF"
   
@@ -253,6 +264,7 @@ sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/confi
 sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/FreeDMR/config/FreeDMR.cfg
 #sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
+sudo sed -i "s/SERVER_ID:.*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 
 rm /opt/conf.txt
 rm /opt/FreeDMR-SAMPLE.cfg
@@ -260,24 +272,9 @@ rm /opt/FreeDMR-SAMPLE.cfg
 cd /opt/FreeDMR/
 mv loro.cfg /opt/FreeDMR/playback.cfg
 sudo sed -i 's/54915/49061/' /opt/FreeDMR/playback.cfg
-
-######
-
-sudo cat > /opt/FreeDMR/config/rules.py <<- "EOF"
-
-BRIDGES = {
- '9990': [
-   {'SYSTEM': 'EchoTest',                 'TS': 2, 'TGID': 9990, 'ACTIVE':True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [9990], 'OFF': [], 'RESET': []},
-   ],
-
-}
-if __name__ == '__main__':
-    from pprint import pprint
-    pprint(BRIDGES)
-
-
-EOF
-#################
+sudo cat /opt/rules.txt >> /opt/FreeDMR/config/rules.py
+sudo chmod +x  /opt/FreeDMR/config/*
+#######################
 #FDMR-Monitor
 cd /opt
 sudo git clone https://github.com/yuvelq/FDMR-Monitor.git
