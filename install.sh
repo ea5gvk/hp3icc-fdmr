@@ -73,15 +73,6 @@ else
 
 fi
 ########################
-if [ -f "/opt/obp.txt" ]
-then
-   echo "found file"
-else
-  sudo cat > /opt/obp.txt <<- "EOF"
- 
-#Coloque abajo su lista de obp y peer
-EOF
-fi
 if [ -d "/var/www" ]
 then
    echo "found file"
@@ -94,6 +85,57 @@ then
 else
   mkdir /var/www/fdmr
 fi
+########################
+if [ -f "/opt/obp.txt" ]
+then
+   echo "found file"
+else
+  sudo cat > /opt/obp.txt <<- "EOF"
+ 
+#Coloque abajo su lista de obp y peer
+EOF
+fi
+######################
+if [ -f "/opt/rules.txt" ]
+then
+   echo "found file"
+else
+ sudo cat > /opt/rules.txt <<- "EOF"
+BRIDGES = {
+ 
+ '9990': [ 
+        {'SYSTEM': 'EchoTest',              'TS': 2, 'TGID': 9990, 'ACTIVE':True, 'TIMEOUT': 0, 'TO_TYPE': 'NONE', 'ON': [9990], 'OFF': [], 'RESET': []}, 
+        ],
+  
+  
+  
+}
+if __name__ == '__main__':
+    from pprint import pprint
+    pprint(BRIDGES)
+  
+ 
+EOF
+fi
+############
+if [ -f "/opt/extra-1.sh" ]
+then
+  echo "found file"
+else
+  sudo cat > /opt/extra-1.sh <<- "EOF"
+######################################################################
+# Coloque en este archivo, cualquier instruccion shell adicional que # 
+# quierre se realice al finalizar la actualizacion.                  #
+######################################################################
+ 
+  
+EOF
+# 
+cp /opt/extra-1.sh /opt/extra-2.sh
+
+fi
+sudo chmod +x /opt/extra-*
+
 #########################
 #lamp
 
@@ -213,6 +255,7 @@ sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/Fre
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
 
 rm /opt/conf.txt
+rm /opt/FreeDMR-SAMPLE.cfg
 
 cd /opt/FreeDMR/
 mv loro.cfg /opt/FreeDMR/playback.cfg
@@ -275,7 +318,15 @@ pip3 install -r requirements.txt
 pip install pyopenssl --upgrade
 cd /opt/FDMR-Monitor/
 cp /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg /opt/FDMR-Monitor/fdmr-mon.cfg
-
+###############################
+sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sudo sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sudo sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy_db.py
+sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
+sudo sed -i "s/root/emqte1/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sudo sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+#################
 cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
 cp /opt/FDMR-Monitor/proxy/proxy_db.py /opt/FreeDMR/proxy_db.py
@@ -577,15 +628,7 @@ systemctl stop apache2
 systemctl disable apache2
 #####################
 sudo sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Raspbian Proyect by HP3ICC © <?php \$cdate=date(\"Y\"); if (\$cdate > \"2018\") {\$cdate=\"2018-\".date(\"Y\");} echo \$cdate; ?>\" target=\"_blank\" href=https:\/\/gitlab.com\/hp3icc\/FDMR\/>Proyect: FDMR+<\/a><br>/g" /var/www/fdmr/*.php
-sudo sed -i "s/root/emqte1/g"  /opt/FreeDMR/hotspot_proxy_v2.py
-sudo sed -i "s/test/selfcare/g"  /opt/FreeDMR/hotspot_proxy_v2.py
-sudo sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g"  /opt/FreeDMR/hotspot_proxy_v2.py
-sudo sed -i "s/test/selfcare/g"  /opt/FreeDMR/proxy_db.py
-sudo sed -i "s/root/emqte1/g"  /opt/FreeDMR/proxy_db.py
-#
-sudo sed -i "s/root/emqte1/g"  /opt/FreeDMR/proxy.cfg
-sudo sed -i "s/test/selfcare/g"  /opt/FreeDMR/proxy.cfg
-#################
+
 chmod +x /opt/FDMR-Monitor/sysinfo/*
 sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
 (crontab -l; echo "*/5 * * * * sh /opt/FDMR-Monitor/sysinfo/graph.sh")|awk '!x[$0]++'|crontab -
