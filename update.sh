@@ -237,6 +237,5 @@ EOF
 sudo chmod +x /opt/fdmr-update.sh
 sudo chmod +x /opt/monitor-update.sh
 sudo chmod +x /bin/menu*
-sudo chmod +x /bin/MENU*
 menu-update
 
