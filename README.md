@@ -1,92 +1,149 @@
 # FDMR+
 
+![alt text](https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-SERVER-Install/main/IMG_1942.jpg)
 
+is an excerpt from the emq-TE1ws proyect, focused on new and current sysops who want to install FreeDMR easily, quickly and up-to-date.
 
-## Getting started
+this shell, install FreeDMR Server and FDMR-Monitor
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+#
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+Shell easy auto install FreeDMR Server version Self-Service without Docker, latest original gitlab hacknix version by G7RZU Simon, with Dashboard by OA4DOA, template mods by WP3JM James & N6DOZ Rudy, Self-Service mods with Dial-TG by IU2NAF Diego and menu by HP3ICC.
 
-## Add your files
+# Important note , Unofficial script to install Freedmr Server with Dashboard self-service, if you require support from the official version of the developer , refer to the original developer script :
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+https://gitlab.hacknix.net/hacknix/FreeDMR/-/wikis/Installing-using-Docker-(recommended!)
 
-```
-cd existing_repo
-git remote add origin https://gitlab.com/hp3icc/fdmr.git
-git branch -M main
-git push -uf origin main
-```
+FreeDMR Server original version gitlab FreeDMR by G7RZU hacknix Simon.
 
-## Integrate with your tools
+#
 
-- [ ] [Set up project integrations](https://gitlab.com/hp3icc/fdmr/-/settings/integrations)
+# Pre-Requirements
 
-## Collaborate with your team
+need have curl and sudo installed
 
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+#
 
-## Test and Deploy
+# Install
 
-Use the built-in continuous integration in GitLab.
+into your ssh terminal copy and paste the following link :
 
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
+    apt-get update
+    apt-get install curl sudo -y
 
-***
+    sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/install.sh)"
+             
+             
+ #            
+  
+ # Menu
+ 
+ ![alt text](https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-SERVER-Install/main/IMG_1941.jpg)
+ 
+  At the end of the installation your freedmr server will be installed and working, a menu will be displayed that will make it easier for you to edit, restart or update your server and dashboard to future versions.
+  
+  to use the options menu, just type menu in your ssh terminal or console.
+  
+ #
+ 
+ # Self-Service
+ 
+ ![alt text](https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-Docker/main/self-service-docker.jpg)
+ 
+ The self-service feature, added by fellow OA4DOA Christian, allows each user to add or remove one or more static tgs from the ease of a graphical environment from the server's Dashboard. 
+ 
+ Thanks to colleague IU2NAF Diego and the FreeDMR Italia team, they add Dial-TG compatibility and option to customize the language of the announcement voice or use CW.
+ 
+ # Self-Service database
 
-# Editing this README
+ The Self-Service function uses a local database, this database does not store private information, it only stores the callsign, id and list of static tgs, created by the same user, the password is the callsign that the hotspot has and The password is decided by the user from his hotspot in the options line, without sending a previous request, filling out a ticket, sending an email or asking someone else for authorization. The user can configure the same password for all their hotspots, repeaters or connections, or they can configure an independent password for each connected equipment. They can only use Self-Service if they have previously configured their password in the options line and their equipment or application. is connected to the server
+ 
+ #
+ 
+ # Self-Service username and password
+ 
+ The user will always be indicative that he has his hotspot or application connected to the server. 
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
+the password is chosen by the user and placed in the options line as follows: " PASS=password_of user_selfservice"
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+Password example " abc123 " :
 
-## Name
-Choose a self-explaining name for your project.
+Options=PASS=abc123
+ 
+<img src="https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-Docker/main/pistar.jpg" width="250" height="280"> <img src="https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-Docker/main/droidstar.jpg" width="200" height="280"> <img src="https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-Docker/main/mmdvm.jpg" width="250" height="280">
+ 
+ The password must contain at least 6 characters between letters and numbers, you cannot use your callsign as a password.
+ 
+ 
+ #
+ 
+ # Server startup
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+To integrate your server to the freedmr network, you must contact the telegram group
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+ * https://t.me/FreeDMR_Building_Server_Support
+        
+ #
+ 
+ #
+ 
+ # Location files config :
+ 
+  * FreeDMR Server:  
+   
+   /opt/FreeDMR/config/FreeDMR.cfg
+   
+  * FreeDMR Rules: 
+   
+   /opt/FreeDMR/config/FreeDMR.cfg
+   
+  * FDMR-Monitor: 
+   
+   /opt/FDMR-Monitor/fdmr-mon.cfg 
+   
+  #
+  
+  # Systemctl Services :
+  
+  * Freedmr: 
+   
+   freedmr.service
+   
+  * FreeDMR Proxy: 
+   
+   proxy.service
+   
+  * FreeDMR Parrot: 
+   
+   fdmrparrot.service
+  
+  * FDMR-Monitor: 
+   
+   fdmr_mon.service
+   
+  * Web Server
+  
+   http.server-fdmr.service
+  
+ #
+  
+ # Dashboard Files
+ 
+ /var/www/fdmr/
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+#
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+ # Sources :
+ 
+ * https://gitlab.hacknix.net/hacknix/FreeDMR
+ 
+ * http://www.freedmr.uk/index.php/freedmr-server-install/
+ 
+  * https://github.com/yuvelq/FDMR-Monitor/tree/Self_Service
+ 
+ * https://www.daniloaz.com/es/como-crear-un-usuario-en-mysql-mariadb-y-concederle-permisos-para-una-base-de-datos-desde-la-linea-de-comandos/
+ 
+ * https://www.tecmint.com/install-lamp-debian-11/
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+ * https://styde.net/crear-una-base-de-datos-en-mysql-mariadb/
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
