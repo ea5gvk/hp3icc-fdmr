@@ -174,7 +174,11 @@ EOF
 ##
 sudo cat > /opt/fdmr-update.sh <<- "EOF"
 #!/bin/bash
-variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | tail -c 5)
+variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | grep -Eo '[0-9]{1,9}')
+if [ -z "$variable" ]
+then variable=0000
+
+fi
 sudo systemctl stop freedmr.service
 sudo systemctl stop proxy.service
 sudo systemctl stop fdmrparrot.service
@@ -197,11 +201,8 @@ sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/confi
 sudo sed -i 's/ANNOUNCEMENT_LANGUAGE: en_GB/ANNOUNCEMENT_LANGUAGE: CW/' /opt/FreeDMR/config/FreeDMR.cfg
 #sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
-if [ -z "$variable" ]
-then variable=0000
-
-fi
 sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
+
 
 rm /opt/conf.txt
 rm /opt/FreeDMR-SAMPLE.cfg
