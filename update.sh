@@ -99,21 +99,6 @@ exit 0
 
 EOF
 ######################################### FreeDMR Update  ###############################################################
-sudo cat > /opt/fdmr-update.sh <<- "EOF"
-#!/bin/bash
-variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | tail -c 5)
-sudo systemctl stop freedmr.service
-sudo systemctl stop proxy.service
-sudo systemctl stop fdmrparrot.service
-rm -r /opt/FreeDMR
-cd /opt
-git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
-sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
-cd FreeDMR
-mkdir config
-mkdir /var/log/FreeDMR
-chmod +x /opt/FreeDMR/install.sh
-./install.sh
 sudo cat > /opt/conf.txt <<- "EOF"
   
 [D-APRS]
@@ -187,6 +172,22 @@ VOICE_IDENT: False
 
 EOF
 ##
+sudo cat > /opt/fdmr-update.sh <<- "EOF"
+#!/bin/bash
+variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | tail -c 5)
+sudo systemctl stop freedmr.service
+sudo systemctl stop proxy.service
+sudo systemctl stop fdmrparrot.service
+rm -r /opt/FreeDMR
+cd /opt
+git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
+sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
+cd FreeDMR
+mkdir config
+mkdir /var/log/FreeDMR
+chmod +x /opt/FreeDMR/install.sh
+./install.sh
+
 if [ -z "$variable" ]
 then variable=0000
 
