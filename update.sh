@@ -33,6 +33,8 @@ sudo nano /opt/FDMR-Monitor/fdmr-mon.cfg ;;
 4)
 sudo nano /lib/systemd/system/http.server-fdmr.service  && systemctl daemon-reload && systemctl restart http.server-fdmr.service ;;
 5)
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
 sudo systemctl stop fdmrparrot.service
 sudo systemctl start fdmrparrot.service
 sudo systemctl enable fdmrparrot.service
@@ -43,6 +45,8 @@ sudo systemctl stop freedmr.service
 sudo systemctl start freedmr.service
 sudo systemctl enable freedmr.service ;;
 6)
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
 sudo systemctl stop fdmr_mon.service
 sudo systemctl start fdmr_mon.service 
 sudo systemctl enable fdmr_mon.service
@@ -55,7 +59,9 @@ sudo systemctl disable fdmrparrot.service
 sudo systemctl stop proxy.service
 sudo systemctl disable proxy.service
 sudo systemctl stop freedmr.service
-sudo systemctl disable freedmr.service ;;
+sudo systemctl disable freedmr.service
+sudo systemctl stop mariadb.service
+sudo systemctl disable mariadb.service ;;
 8)
 sudo systemctl stop fdmr_mon.service
 sudo systemctl disable fdmr_mon.service
