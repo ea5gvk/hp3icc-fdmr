@@ -655,7 +655,6 @@ Type=simple
 Restart=always
 RestartSec=3
 StandardOutput=null
-ExecStartPre=/bin/sh -c 'until ping -c1 noip.com; do sleep 1; done;'
 ExecStart=/usr/bin/python3 /opt/FreeDMR/hotspot_proxy_v2.py -c /opt/FreeDMR/proxy.cfg
 
 [Install]
@@ -673,7 +672,6 @@ Type=simple
 Restart=always
 RestartSec=3
 StandardOutput=null
-ExecStartPre=/bin/sh -c 'until ping -c1 noip.com; do sleep 1; done;'
 ExecStart=/usr/bin/python3 /opt/FreeDMR/bridge_master.py -c /opt/FreeDMR/config/FreeDMR.cfg -r /opt/FreeDMR/config/rules.py
 
 [Install]
@@ -691,8 +689,8 @@ StandardOutput=null
 WorkingDirectory=/opt/FreeDMR
 RestartSec=3
 ExecStart=/usr/bin/python3 /opt/FreeDMR/playback.py -c /opt/FreeDMR/playback.cfg
-#/usr/bin/python3 /opt/HBlink3/playback.py -c /opt/HBlink3/playback.cfg
 Restart=on-abort
+
 [Install]
 WantedBy=multi-user.target
 EOF
@@ -727,7 +725,6 @@ Restart=always
 RestartSec=3
 StandardOutput=null
 WorkingDirectory=/opt/FDMR-Monitor
-ExecStartPre=/bin/sh -c 'until ping -c1 noip.com; do sleep 1; done;'
 ExecStart=python3 /opt/FDMR-Monitor/monitor.py
 Restart=on-abort
 
@@ -767,6 +764,8 @@ sudo nano /opt/FDMR-Monitor/fdmr-mon.cfg ;;
 4)
 sudo nano /lib/systemd/system/http.server-fdmr.service  && systemctl daemon-reload && systemctl restart http.server-fdmr.service ;;
 5)
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
 sudo systemctl stop fdmrparrot.service
 sudo systemctl start fdmrparrot.service
 sudo systemctl enable fdmrparrot.service
@@ -777,6 +776,8 @@ sudo systemctl stop freedmr.service
 sudo systemctl start freedmr.service
 sudo systemctl enable freedmr.service ;;
 6)
+sudo systemctl start mariadb.service
+sudo systemctl enable mariadb.service
 sudo systemctl stop fdmr_mon.service
 sudo systemctl start fdmr_mon.service 
 sudo systemctl enable fdmr_mon.service
@@ -789,7 +790,9 @@ sudo systemctl disable fdmrparrot.service
 sudo systemctl stop proxy.service
 sudo systemctl disable proxy.service
 sudo systemctl stop freedmr.service
-sudo systemctl disable freedmr.service ;;
+sudo systemctl disable freedmr.service
+sudo systemctl stop mariadb.service
+sudo systemctl disable mariadb.service ;;
 8)
 sudo systemctl stop fdmr_mon.service
 sudo systemctl disable fdmr_mon.service
