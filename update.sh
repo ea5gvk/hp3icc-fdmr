@@ -258,6 +258,59 @@ fi
 sudo systemctl stop freedmr.service
 sudo systemctl stop proxy.service
 sudo systemctl stop fdmrparrot.service
+##################
+#Service
+sudo cat > /lib/systemd/system/proxy.service <<- "EOF"
+[Unit]
+Description= Proxy Service 
+After=multi-user.target
+
+[Service]
+User=root
+Type=simple
+Restart=always
+RestartSec=3
+StandardOutput=null
+ExecStart=/usr/bin/python3 /opt/FreeDMR/hotspot_proxy_v2.py -c /opt/FreeDMR/proxy.cfg
+
+[Install]
+WantedBy=multi-user.target
+EOF
+#########
+sudo cat > /lib/systemd/system/freedmr.service <<- "EOF"
+[Unit]
+Description=FreeDmr
+After=multi-user.target
+
+[Service]
+User=root
+Type=simple
+Restart=always
+RestartSec=3
+StandardOutput=null
+ExecStart=/usr/bin/python3 /opt/FreeDMR/bridge_master.py -c /opt/FreeDMR/config/FreeDMR.cfg -r /opt/FreeDMR/config/rules.py
+
+[Install]
+WantedBy=multi-user.target
+EOF
+###
+sudo cat > /lib/systemd/system/fdmrparrot.service <<- "EOF"
+[Unit]
+Description=Freedmr Parrot
+After=network-online.target syslog.target
+Wants=network-online.target
+
+[Service]
+StandardOutput=null
+WorkingDirectory=/opt/FreeDMR
+RestartSec=3
+ExecStart=/usr/bin/python3 /opt/FreeDMR/playback.py -c /opt/FreeDMR/playback.cfg
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+EOF
+#
 rm -r /opt/FreeDMR
 cd /opt
 git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
@@ -316,6 +369,34 @@ variable5=$(grep "COLOR_2 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 
 sudo systemctl stop fdmr_mon.service
 sudo systemctl stop proxy.service
+
+##############################################################
+#                 service update
+############################################################
+
+cat > /lib/systemd/system/fdmr_mon.service  <<- "EOF"
+[Unit]
+Description=FDMR Monitor
+# To make the network-online.target available
+# systemctl enable systemd-networkd-wait-online.service
+#After=network-online.target syslog.target
+#Wants=network-online.target
+
+[Service]
+User=root
+Type=simple
+Restart=always
+RestartSec=3
+StandardOutput=null
+WorkingDirectory=/opt/FDMR-Monitor
+ExecStart=python3 /opt/FDMR-Monitor/monitor.py
+Restart=on-abort
+
+[Install]
+WantedBy=multi-user.target
+EOF
+#
+
 
 if [ -d "/var/www/fdmr" ];
 then
