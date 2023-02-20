@@ -248,7 +248,7 @@ VOICE_IDENT: False
 
 EOFA1
 ##
-sudo cat > /opt/fdmr-update.sh <<- "EOF"
+sudo cat > /opt/fdmr-update.sh <<- "EOFD1"
 #!/bin/bash
 variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | grep -Eo '[0-9]{1,9}')
 if [ -z "$variable" ]
@@ -357,7 +357,7 @@ sudo systemctl restart fdmr_mon.service
 ######
 
 
-EOF
+EOFD1
 ######################################### FDMR-Monitor Update  ###############################################################
 sudo cat > /opt/monitor-update.sh <<- "EOFB1"
 #!/bin/bash
