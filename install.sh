@@ -13,7 +13,31 @@ sudo apt-get install git -y
 apt-get install sudo -y
 apt install python3 python3-pip python3-dev libffi-dev libssl-dev cargo sed -y
 apt install default-libmysqlclient-dev build-essential -y
-#########################
+######################################################################################################################
+#                                                           Cronedit
+######################################################################################################################
+cat > /usr/local/bin/cronedit.sh <<- "EOF"
+cronjob_editor () {
+# usage: cronjob_editor '<interval>' '<command>' <add|remove>
+
+if [[ -z "$1" ]] ;then printf " no interval specified\n" ;fi
+if [[ -z "$2" ]] ;then printf " no command specified\n" ;fi
+if [[ -z "$3" ]] ;then printf " no action specified\n" ;fi
+
+if [[ "$3" == add ]] ;then
+    # add cronjob, no duplication:
+    ( sudo crontab -l | grep -v -F -w "$2" ; echo "$1 $2" ) | sudo crontab -
+elif [[ "$3" == remove ]] ;then
+    # remove cronjob:
+    ( sudo crontab -l | grep -v -F -w "$2" ) | sudo crontab -
+fi
+}
+cronjob_editor "$1" "$2" "$3"
+
+
+EOF
+sudo chmod +x /usr/local/bin/cronedit.sh
+
 if [ -f "/var/www/html/tgcount.php" ];
 then
    sudo systemctl stop apache2
@@ -640,8 +664,7 @@ sudo sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Ras
 
 chmod +x /opt/FDMR-Monitor/sysinfo/*
 sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
-(crontab -l; echo "*/5 * * * * sh /opt/FDMR-Monitor/sysinfo/graph.sh")|awk '!x[$0]++'|crontab -
-(crontab -l; echo "*/2 * * * * sh /opt/FDMR-Monitor/sysinfo/cpu.sh")|awk '!x[$0]++'|crontab -
+
 ##################
 #Service
 sudo cat > /lib/systemd/system/proxy.service <<- "EOF"
@@ -776,6 +799,8 @@ sudo systemctl stop freedmr.service
 sudo systemctl start freedmr.service
 sudo systemctl enable freedmr.service ;;
 6)
+cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' add
+cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' add
 sudo systemctl start mariadb.service
 sudo systemctl enable mariadb.service
 sudo systemctl stop fdmr_mon.service
@@ -794,6 +819,8 @@ sudo systemctl disable freedmr.service
 sudo systemctl stop mariadb.service
 sudo systemctl disable mariadb.service ;;
 8)
+cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' remove
+cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' remove
 sudo systemctl stop fdmr_mon.service
 sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
