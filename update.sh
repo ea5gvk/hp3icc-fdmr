@@ -45,6 +45,8 @@ sudo systemctl stop freedmr.service
 sudo systemctl start freedmr.service
 sudo systemctl enable freedmr.service ;;
 6)
+cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' add
+cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' add
 sudo systemctl start mariadb.service
 sudo systemctl enable mariadb.service
 sudo systemctl stop fdmr_mon.service
@@ -63,6 +65,8 @@ sudo systemctl disable freedmr.service
 sudo systemctl stop mariadb.service
 sudo systemctl disable mariadb.service ;;
 8)
+cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' remove
+cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' remove
 sudo systemctl stop fdmr_mon.service
 sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
@@ -776,6 +780,30 @@ sh /opt/extra-2.sh
 systemctl start fdmr_mon.service
 systemctl start proxy.service
 EOFB1
+######################################################################################################################
+#                                                           Cronedit
+######################################################################################################################
+cat > /usr/local/bin/cronedit.sh <<- "EOFC1"
+cronjob_editor () {
+# usage: cronjob_editor '<interval>' '<command>' <add|remove>
+
+if [[ -z "$1" ]] ;then printf " no interval specified\n" ;fi
+if [[ -z "$2" ]] ;then printf " no command specified\n" ;fi
+if [[ -z "$3" ]] ;then printf " no action specified\n" ;fi
+
+if [[ "$3" == add ]] ;then
+    # add cronjob, no duplication:
+    ( sudo crontab -l | grep -v -F -w "$2" ; echo "$1 $2" ) | sudo crontab -
+elif [[ "$3" == remove ]] ;then
+    # remove cronjob:
+    ( sudo crontab -l | grep -v -F -w "$2" ) | sudo crontab -
+fi
+}
+cronjob_editor "$1" "$2" "$3"
+
+
+EOFC1
+sudo chmod +x /usr/local/bin/cronedit.sh
 
 ##########################################  End Update Files   ##############################################################
 sudo chmod +x /opt/fdmr-update.sh
