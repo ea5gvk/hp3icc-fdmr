@@ -664,7 +664,8 @@ sudo sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Ras
 
 chmod +x /opt/FDMR-Monitor/sysinfo/*
 sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
-
+(crontab -l; echo "*/5 * * * * sh /opt/FDMR-Monitor/sysinfo/graph.sh")|awk '!x[$0]++'|crontab -
+(crontab -l; echo "*/2 * * * * sh /opt/FDMR-Monitor/sysinfo/cpu.sh")|awk '!x[$0]++'|crontab -
 ##################
 #Service
 sudo cat > /lib/systemd/system/proxy.service <<- "EOF"
