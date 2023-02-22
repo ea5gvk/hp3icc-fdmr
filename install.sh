@@ -685,6 +685,8 @@ ExecStart=/usr/bin/python3 /opt/FreeDMR/hotspot_proxy_v2.py -c /opt/FreeDMR/prox
 WantedBy=multi-user.target
 EOF
 #########
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
+#########
 sudo cat > /lib/systemd/system/freedmr.service <<- "EOF"
 [Unit]
 Description=FreeDmr
@@ -768,7 +770,8 @@ choix=$(whiptail --title "Raspbian Proyect HP3ICC FDMR+" --menu "move up or down
 6 " Start-Restart FDMR-Monitor " \
 7 " Stop FreeDMR SERVER " \
 8 " Stop FDMR-Monitor " \
-9 " Menu update " 3>&1 1>&2 2>&3)
+9 " D-APRS " \
+10 " Menu update " 3>&1 1>&2 2>&3)
 exitstatus=$?
 #on recupere ce choix
 #exitstatus=$?
@@ -827,6 +830,8 @@ sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
 sudo systemctl disable http.server-fdmr.service;; 
 9)
+menu-igate ;;
+10)
 sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
 esac
 done
