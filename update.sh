@@ -13,7 +13,8 @@ choix=$(whiptail --title "Raspbian Proyect HP3ICC FDMR+" --menu "move up or down
 6 " Start-Restart FDMR-Monitor " \
 7 " Stop FreeDMR SERVER " \
 8 " Stop FDMR-Monitor " \
-9 " Menu update " 3>&1 1>&2 2>&3)
+9 " D-APRS " \
+10 " Menu update " 3>&1 1>&2 2>&3)
 exitstatus=$?
 #on recupere ce choix
 #exitstatus=$?
@@ -72,6 +73,8 @@ sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
 sudo systemctl disable http.server-fdmr.service;; 
 9)
+menu-igate ;;
+10)
 sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
 esac
 done
@@ -79,7 +82,15 @@ exit 0
 EOF
 ###
 chmod +x /bin/menu-fdmr
+####
+if [ -d "/opt/D-APRS" ]
+then
+   echo "found file"
+elif
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
+fi
 
+####
 sudo cat > /bin/menu-update <<- "EOF"
 #!/bin/bash
 while : ; do
