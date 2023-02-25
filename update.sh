@@ -328,7 +328,6 @@ EOF
 #
 rm -r /opt/FreeDMR
 cd /opt
-#git clone https://github.com/hp3icc/FreeDMR.git
 git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
 sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
 cd FreeDMR
