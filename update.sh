@@ -86,7 +86,7 @@ chmod +x /bin/menu-fdmr
 if [ -d "/opt/D-APRS" ]
 then
    echo "found file"
-elif
+else
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
 fi
 
@@ -156,8 +156,8 @@ break;
 esac
 done
 exit 0
+
 EOF
-#
 #
 sudo cat > /bin/menu-up-fdmon <<- "EOF"
 #!/bin/bash
