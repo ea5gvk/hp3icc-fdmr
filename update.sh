@@ -337,6 +337,7 @@ chmod +x /opt/FreeDMR/install.sh
 ./install.sh
 #
 sudo sed -i "s/ANNOUNCEMENT_LANGUAGE:.*/ANNOUNCEMENT_LANGUAGE: CW/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sudo sed -i "s/SINGLE_MODE:.*/SINGLE_MODE: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
