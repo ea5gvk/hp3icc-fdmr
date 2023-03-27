@@ -291,6 +291,11 @@ VOICE_IDENT: False
 
 EOF
 ##
+if [ "$(cat /opt/FreeDMR/FreeDMR-SAMPLE.cfg | grep 'TOPO_FILE')" != "" ]; then
+sudo sed -i 's/TOPO_FILE:.*/TOPO_FILE: topography.json/' /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+else
+sed '45 a TOPO_FILE: topography.json' -i /opt/FreeDMR/FreeDMR-SAMPLE.cfg 
+fi
 sudo sed -i "s/ANNOUNCEMENT_LANGUAGE:.*/ANNOUNCEMENT_LANGUAGE: es_ES/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/SINGLE_MODE:.*/SINGLE_MODE: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
