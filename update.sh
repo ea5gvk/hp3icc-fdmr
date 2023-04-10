@@ -506,7 +506,10 @@ sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
   <div class="dropdown-content">
 &nbsp;
 <a class="button" href="linkedsys.php">Linked Systems</a>
+
+<a class="button" href="http://freedmr-hp-rpt.ddns.net/linkedsys.php">Linked Repeaters</a>
 <a class="button" href="statictg.php">Static TG</a>
+
 <a class="button" href="opb.php">OpenBridge</a>
 &nbsp;
 </div>
@@ -526,12 +529,13 @@ sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
 <div class="dropdown">
   <button class="dropbtn">Local Server</button>
   <div class="dropdown-content">
+
 <a class="button" href="moni.php">&nbsp;Monitor&nbsp;</a>
-&nbsp;
+
 <a class="button" href="sysinfo.php">&nbsp;System Info&nbsp;</a>
-&nbsp;
+
 <a class="button" href="log.php">&nbsp;Lastheard&nbsp;</a>
-&nbsp;
+
 <a class="button" href="tgcount.php">&nbsp;TG Count&nbsp;</a>
 &nbsp;
 </div>
@@ -540,18 +544,14 @@ sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
   <button class="dropbtn">FreeDMR</button>
   <div class="dropdown-content">
 &nbsp;
-<a class="button" href="http://www.freedmr.uk/index.php/why-use-freedmr/"target="_blank">&nbsp;Info FreeDMR&nbsp;</a>
-&nbsp;
+<a class="button" href="https://freedmr-lh.gb7fr.org.uk/?limit=100&recent=1"target="_blank">&nbsp;Global Info FreeDMR&nbsp;</a>
 <a class="button" href="http://www.freedmr.uk/index.php/freedmr-servers/"target="_blank">&nbsp;Info Server&nbsp;</a>
-&nbsp;
-<a class="button" href="http://www.freedmr.uk/server_test.php"target="_blank">&nbsp;Status Server&nbsp;</a>
-&nbsp;
 <a class="button" href="http://www.freedmr.uk/index.php/world-wide-talk-groups/"target="_blank">&nbsp;World Wide Talk Groups&nbsp;</a>
-&nbsp;
 <a class="button" href="http://www.freedmr.uk/freedmr/option-calculator-b.php"target="_blank">&nbsp;Static TG Calculator&nbsp;</a>
 &nbsp;
 </div>
 </div>
+
 <!--
 <a class="button" href="bridges.php">Bridges</a>
 -->
