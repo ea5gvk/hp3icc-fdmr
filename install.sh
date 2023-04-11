@@ -390,7 +390,6 @@ sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
 &nbsp;
 <a class="button" href="linkedsys.php">Linked Systems</a>
 
-<a class="button" href="http://freedmr-hp-rpt.ddns.net/linkedsys.php">Linked Repeaters</a>
 <a class="button" href="statictg.php">Static TG</a>
 
 <a class="button" href="opb.php">OpenBridge</a>
