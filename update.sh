@@ -477,9 +477,9 @@ cd /opt/FDMR-Monitor/
 cp /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg /opt/FDMR-Monitor/fdmr-mon.cfg
 ###############################
 sudo sed -i "s/PEER_URL =.*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+#sudo sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
 sudo sed -i "s/TGID_URL =.*/TGID_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/talkgroup_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+#sudo sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
 sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 sudo sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
