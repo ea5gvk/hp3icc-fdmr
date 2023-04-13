@@ -305,8 +305,6 @@ cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/INFO/DEBUG/' /opt/FreeDMR/config/FreeDMR.cfg
 sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/config/FreeDMR.cfg
-#sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
-#sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
 sudo sed -i "s/SERVER_ID:.*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 
 rm /opt/conf.txt
@@ -343,9 +341,6 @@ sudo chmod +x /opt/FDMR-Monitor/sysinfo/rrd-db.sh
 sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 sudo sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-#sudo sed -i "s/TGID_URL =/#TGID_URL =/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-#sed '63 a #TGID_URL = https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-#sed '64 a #TGID_URL = https://freedmr.cymru/talkgroups/talkgroup_ids_flags_json.php' -i /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 
 cd /opt/FDMR-Monitor/
 #sudo rm /opt/FDMR-Monitor/install.sh
@@ -360,9 +355,9 @@ cd /opt/FDMR-Monitor/
 cp /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg /opt/FDMR-Monitor/fdmr-mon.cfg
 ###############################
 sudo sed -i "s/PEER_URL =.*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-#sudo sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sudo sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = https:\/\/freedmr.cymru\/talkgroups\/users.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sudo sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = users.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
 sudo sed -i "s/TGID_URL =.*/TGID_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/talkgroup_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-#sudo sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
 sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 sudo sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
