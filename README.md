@@ -10,7 +10,17 @@ this shell, install FreeDMR Server and FDMR-Monitor
 
 Shell easy auto install FreeDMR Server version Self-Service without Docker, latest original gitlab hacknix version by G7RZU Simon, with Dashboard by OA4DOA, template mods by WP3JM James & N6DOZ Rudy, Self-Service mods with Dial-TG by IU2NAF Diego and menu by HP3ICC.
 
-# Important note , Unofficial script to install Freedmr Server with Dashboard self-service, if you require support from the official version of the developer , refer to the original developer script :
+# Important note , 
+
+* Compatibility
+
+You can use this script on raspberry , linux pc , server , virtual machine or vps with debian 11 x86 or x64
+
+This script contains binaries created by different developers , many designed to be used on debian 11 or higher , bad news for ubuntu users , some of the included applications may only work correctly on debian 11
+
+* Support
+
+Unofficial script to install Freedmr Server with Dashboard self-service, if you require support from the official version of the developer , refer to the original developer script :
 
 https://gitlab.hacknix.net/hacknix/FreeDMR/-/wikis/Installing-using-Docker-(recommended!)
 
