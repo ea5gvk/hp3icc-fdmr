@@ -344,6 +344,10 @@ fi
 sudo sed -i "s/ANNOUNCEMENT_LANGUAGE:.*/ANNOUNCEMENT_LANGUAGE: es_ES/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/SINGLE_MODE:.*/SINGLE_MODE: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sudo sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sudo sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sudo sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
 sudo cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
