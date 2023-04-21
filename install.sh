@@ -615,7 +615,7 @@ cat > /opt/FDMR-Monitor/templates/main_table.html  <<- "EOF"
         <h4 class="tittle">PEERS:</h4>
         <div class="hs-peers">
           {% for _peer, _pdata  in _table['PEERS'].items() %}
-          <div class="tooltip" style="border-bottom: 1px dotted white;{{'background-color:#98FB98; color:#464646;' if _table['PEERS'][_peer]['STATS']['CONNECTION'] == 'YES' else 'background-color:#ff0000; color:white;'}}"><b>&nbsp;&nbsp;{{_pdata['CALLSIGN']}}&nbsp;&nbsp;</b>
+          <div class="tooltip" style="border-bottom: 1px dotted white;{{'background-color:#98FB98; color:#464646;' if _table['PEERS'][_peer]['STATS']['CONNECTION'] == 'YES' else 'background-color:#ff0000; color:white;'}}"><b>&nbsp;&nbsp;{{_peer}}&nbsp;&nbsp;</b>
             {% if _table['PEERS'][_peer]['STATS']['CONNECTION'] == 'YES' %}
             <span class="tooltiptext c2s-pos2">Connected</span>
             {% else %}
