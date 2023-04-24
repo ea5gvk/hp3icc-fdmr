@@ -827,7 +827,30 @@ cronjob_editor "$1" "$2" "$3"
 EOFC1
 sudo chmod +x /usr/local/bin/cronedit.sh
 
+if [ -f "/lib/systemd/system/http.server-fdmr.service" ];
+then
+   echo ""
+ #echo "found file"
+else
+cat > /lib/systemd/system/http.server-fdmr.service <<- "EOFH"
+[Unit]
+Description=PHP http.server.fdmr
+After=network.target
+
+[Service]
+User=root
+#ExecStartPre=/bin/sleep 30
+# Modify for different other port
+ExecStart=php -S 0.0.0.0:80 -t /var/www/fdmr/
+
+[Install]
+WantedBy=multi-user.target
+EOFH
+
+
+fi
 ##########################################  End Update Files   ##############################################################
+sudo systemctl daemon-reload
 sudo chmod +x /opt/fdmr-update.sh
 sudo chmod +x /opt/monitor-update.sh
 sudo chmod +x /bin/menu*
