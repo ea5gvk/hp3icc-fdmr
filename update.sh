@@ -80,7 +80,7 @@ sudo systemctl disable http.server-fdmr.service;;
 9)
 menu-igate ;;
 10)
-sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
+bash -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
 esac
 done
 exit 0
@@ -92,7 +92,7 @@ if [ -d "/opt/D-APRS" ]
 then
    echo "found file"
 else
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
+  bash -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
 fi
 
 ####
