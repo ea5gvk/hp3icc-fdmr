@@ -727,7 +727,7 @@ ExecStart=/usr/bin/python3 /opt/FreeDMR/hotspot_proxy_v2.py -c /opt/FreeDMR/prox
 WantedBy=multi-user.target
 EOF
 #########
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/hp3icc/D-APRS/main/emq-daprs.sh)"
 #########
 sudo cat > /lib/systemd/system/freedmr.service <<- "EOF"
 [Unit]
@@ -878,7 +878,7 @@ sudo systemctl disable http.server-fdmr.service;;
 9)
 menu-igate ;;
 10)
-sh -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
+bash -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/update.sh)";
 esac
 done
 exit 0
