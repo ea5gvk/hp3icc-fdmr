@@ -490,8 +490,6 @@ sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
 EOF
 
 #
-
-mkdir /var/www/fdmr/ 
 cp -r /opt/FDMR-Monitor/html/* /var/www/fdmr/ 
 sudo chown www-data:www-data /var/www/fdmr/ -R    
 cp /opt/FDMR-Monitor/utils/logrotate/fdmr_mon /etc/logrotate.d/
