@@ -5,14 +5,21 @@ if [[ $EUID -ne 0 ]]; then
 fi
 ######################################
 (crontab -l; echo "* */1 * * * sync ; echo 3 > /proc/sys/vm/drop_caches >/dev/null 2>&1")|awk '!x[$0]++'|crontab -
-echo Actualizando sistema 
-apt update 
 # apt-get upgrade -y
-sudo apt-get install wget -y
-sudo apt-get install git -y
-apt-get install sudo -y
-apt install python3 python3-pip python3-dev libffi-dev libssl-dev cargo sed -y
-apt install default-libmysqlclient-dev build-essential -y
+
+apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
+
+for app in "${apps[@]}"
+do
+    # Verificar apps
+    if ! dpkg -s "$app" >/dev/null 2>&1; then
+        # app no instalada
+        sudo apt-get install -y "$app"
+    else
+        # app ya instalada
+        echo "$app ya instalada"
+    fi
+done
 ######################################################################################################################
 #                                                           Cronedit
 ######################################################################################################################
@@ -186,8 +193,19 @@ sudo chmod +x /opt/extra-*
 #########################
 #lamp
 
-sudo apt install mariadb-server php libapache2-mod-php php-zip php-mbstring php-cli php-common php-curl php-xml php-mysql -y
+apps=("mariadb-server" "php" "libapache2-mod-php" "php-zip" "php-mbstring" "php-cli" "php-common" "php-curl" "php-xml" "php-mysql")
 
+for app in "${apps[@]}"
+do
+    # Verificar apps
+    if ! dpkg -s "$app" >/dev/null 2>&1; then
+        # app no instalada
+        sudo apt-get install -y "$app"
+    else
+        # app ya instalada
+        echo "$app ya instalada"
+    fi
+done
 systemctl restart mariadb
 systemctl enable mariadb
 #sudo mysql_secure_installation  --host=localhost --port=3306
@@ -352,7 +370,19 @@ sudo sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Moni
 cd /opt/FDMR-Monitor/
 #sudo rm /opt/FDMR-Monitor/install.sh
 ################
-sudo apt-get install rrdtool -y
+apps=("rrdtool")
+
+for app in "${apps[@]}"
+do
+    # Verificar apps
+    if ! dpkg -s "$app" >/dev/null 2>&1; then
+        # app no instalada
+        sudo apt-get install -y "$app"
+    else
+        # app ya instalada
+        echo "$app ya instalada"
+    fi
+done
 sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
 sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
 # Install the required support programs
@@ -772,6 +802,10 @@ EOF
 #
 sudo cat > /bin/menu-fdmr <<- "EOF"
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC FDMR+" --menu "move up or down with the keyboard arrows and select your option by pressing enter:" 23 56 13 \
 1 " Edit FreeDMR Server " \
