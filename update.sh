@@ -37,7 +37,7 @@ sudo nano /opt/FreeDMR/config/rules.py ;;
 3)
 sudo nano /opt/FDMR-Monitor/fdmr-mon.cfg ;;
 4)
-sudo nano /lib/systemd/system/http.http.server-fdmr.service  && systemctl daemon-reload && systemctl restart http.http.server-fdmr.service ;;
+sudo nano /lib/systemd/system/http.server-fdmr.service  && systemctl daemon-reload && systemctl restart http.server-fdmr.service ;;
 5)
 sudo systemctl start mariadb.service
 sudo systemctl enable mariadb.service
@@ -58,9 +58,9 @@ sudo systemctl enable mariadb.service
 sudo systemctl stop fdmr_mon.service
 sudo systemctl start fdmr_mon.service 
 sudo systemctl enable fdmr_mon.service
-sudo systemctl stop http.http.server-fdmr.service
-sudo systemctl start http.http.server-fdmr.service
-sudo systemctl enable http.http.server-fdmr.service;;
+sudo systemctl stop http.server-fdmr.service
+sudo systemctl start http.server-fdmr.service
+sudo systemctl enable http.server-fdmr.service;;
 7)
 sudo systemctl stop fdmrparrot.service
 sudo systemctl disable fdmrparrot.service
@@ -75,8 +75,8 @@ cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' remove
 cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' remove
 sudo systemctl stop fdmr_mon.service
 sudo systemctl disable fdmr_mon.service
-sudo systemctl stop http.http.server-fdmr.service
-sudo systemctl disable http.http.server-fdmr.service;; 
+sudo systemctl stop http.server-fdmr.service
+sudo systemctl disable http.server-fdmr.service;; 
 9)
 menu-igate ;;
 10)
@@ -850,12 +850,12 @@ cronjob_editor "$1" "$2" "$3"
 EOFC1
 sudo chmod +x /usr/local/bin/cronedit.sh
 
-if [ -f "/lib/systemd/system/http.http.server-fdmr.service" ];
+if [ -f "/lib/systemd/system/http.server-fdmr.service" ];
 then
    echo ""
  #echo "found file"
 else
-cat > /lib/systemd/system/http.http.server-fdmr.service <<- "EOFH"
+cat > /lib/systemd/system/http.server-fdmr.service <<- "EOFH"
 [Unit]
 Description=PHP http.server.fdmr
 After=network.target
