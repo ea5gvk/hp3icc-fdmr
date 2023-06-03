@@ -3,6 +3,11 @@ cd /
 #
 sudo cat > /bin/menu-fdmr <<- "EOF"
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC FDMR+" --menu "move up or down with the keyboard arrows and select your option by pressing enter:" 23 56 13 \
 1 " Edit FreeDMR Server " \
@@ -93,6 +98,11 @@ fi
 ####
 sudo cat > /bin/menu-update <<- "EOF"
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor OA4DOA" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
 " 17 50 4 \
@@ -125,6 +135,11 @@ EOF
 
 sudo cat > /bin/menu-up-fdm <<- "EOF"
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FreeDMR" --menu "Nota Importante: debe debe agregar todos sus obp en la opcion numero uno, ( 1-Lista de OBP )antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo la carpeta /opt/FreeDMR, al finalizar la actualizacion el servicio Freedmr se reinniciara automaticamente.
 " 18 55 5 \
@@ -161,6 +176,11 @@ EOF
 #
 sudo cat > /bin/menu-up-fdmon <<- "EOF"
 #!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
 while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor OA4DOA" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
 " 17 50 4 \
