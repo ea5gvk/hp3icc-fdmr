@@ -367,10 +367,7 @@ sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/*.*
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/css/*.*
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/templates/*.*
-sed -i 's/b1eee9/3bb43d/' /opt/FDMR-Monitor/html/css/*.*
+
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
 sudo cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
@@ -477,6 +474,10 @@ sed '35 a -->' -i /opt/FDMR-Monitor/html/sysinfo.php
 ####
 sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
 sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/*.*
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/css/*.*
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/templates/*.*
+sed -i 's/b1eee9/3bb43d/' /opt/FDMR-Monitor/html/css/*.*
 ####
 sed -i 's/localhost_2-day.png/localhost_1-day.png/' /opt/FDMR-Monitor/html/sysinfo.php
 sed -i "s/HBMonv2/FDMR-Monitor/g"  /opt/FDMR-Monitor/sysinfo/*.sh
