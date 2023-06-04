@@ -357,36 +357,36 @@ chmod +x /opt/FreeDMR/install.sh
 ./install.sh
 #
 if [ "$(cat /opt/FreeDMR/FreeDMR-SAMPLE.cfg | grep 'TOPO_FILE')" != "" ]; then
-sudo sed -i 's/TOPO_FILE:.*/TOPO_FILE: topography.json/' /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i 's/TOPO_FILE:.*/TOPO_FILE: topography.json/' /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 else
 sed '45 a TOPO_FILE: topography.json' -i /opt/FreeDMR/FreeDMR-SAMPLE.cfg 
 fi
-sudo sed -i "s/ANNOUNCEMENT_LANGUAGE:.*/ANNOUNCEMENT_LANGUAGE: es_ES/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i "s/SINGLE_MODE:.*/SINGLE_MODE: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
-sudo sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/*.*
-sudo sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/css/*.*
-sudo sed -i 's/1100/1200/' /opt/FDMR-Monitor/templates/*.*
-sudo sed -i 's/b1eee9/3bb43d/' /opt/FDMR-Monitor/html/css/*.*
+sed -i "s/ANNOUNCEMENT_LANGUAGE:.*/ANNOUNCEMENT_LANGUAGE: es_ES/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/SINGLE_MODE:.*/SINGLE_MODE: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/*.*
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/css/*.*
+sed -i 's/1100/1200/' /opt/FDMR-Monitor/templates/*.*
+sed -i 's/b1eee9/3bb43d/' /opt/FDMR-Monitor/html/css/*.*
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
 sudo cat FreeDMR-SAMPLE.cfg conf.txt obp.txt >> /opt/FreeDMR/config/FreeDMR.cfg
-sudo sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
-sudo sed -i 's/INFO/DEBUG/' /opt/FreeDMR/config/FreeDMR.cfg
-sudo sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/config/FreeDMR.cfg
-#sudo sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
+sed -i 's/file-timed/console-timed/' /opt/FreeDMR/config/FreeDMR.cfg
+sed -i 's/INFO/DEBUG/' /opt/FreeDMR/config/FreeDMR.cfg
+sed -i 's/freedmr.log/\/var\/log\/FreeDMR\/FreeDMR.log/' /opt/FreeDMR/config/FreeDMR.cfg
+#sed -i "s/TGID_URL:/#TGID_URL:/g"  /opt/FreeDMR/config/FreeDMR.cfg 
 #sed '37 a TGID_URL: https://freedmr.cymru/talkgroups/talkgroup_ids_json.php' -i /opt/FreeDMR/config/FreeDMR.cfg 
-sudo sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
+sed -i "s/SERVER_ID: .*/SERVER_ID: $variable/g"  /opt/FreeDMR/config/FreeDMR.cfg
 
 rm /opt/conf.txt
 rm /opt/FreeDMR-SAMPLE.cfg
 
 cd /opt/FreeDMR/
 mv loro.cfg /opt/FreeDMR/playback.cfg
-sudo sed -i 's/54915/49061/' /opt/FreeDMR/playback.cfg
+sed -i 's/54915/49061/' /opt/FreeDMR/playback.cfg
 sudo cat /opt/rules.txt >> /opt/FreeDMR/config/rules.py
 sudo chmod +x  /opt/FreeDMR/config/*
 
@@ -469,48 +469,48 @@ cd FDMR-Monitor
 sudo git checkout Self_Service
 sudo chmod +x install.sh
 
-sudo sed -i 's/RELOAD_TIME = 15/RELOAD_TIME = 1/' /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-sudo sed -i 's/FREQUENCY = 10/FREQUENCY = 120/' /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
+sed -i 's/RELOAD_TIME = 15/RELOAD_TIME = 1/' /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
+sed -i 's/FREQUENCY = 10/FREQUENCY = 120/' /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 sudo chmod 644 /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 sed '33 a <!--' -i /opt/FDMR-Monitor/html/sysinfo.php
 sed '35 a -->' -i /opt/FDMR-Monitor/html/sysinfo.php
 ####
-sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
-sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
+sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
+sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
 ####
-sudo sed -i 's/localhost_2-day.png/localhost_1-day.png/' /opt/FDMR-Monitor/html/sysinfo.php
-sudo sed -i "s/HBMonv2/FDMR-Monitor/g"  /opt/FDMR-Monitor/sysinfo/*.sh
+sed -i 's/localhost_2-day.png/localhost_1-day.png/' /opt/FDMR-Monitor/html/sysinfo.php
+sed -i "s/HBMonv2/FDMR-Monitor/g"  /opt/FDMR-Monitor/sysinfo/*.sh
 sudo chmod +x /opt/FDMR-Monitor/sysinfo/cpu.sh
 sudo chmod +x /opt/FDMR-Monitor/sysinfo/graph.sh
 sudo chmod +x /opt/FDMR-Monitor/sysinfo/rrd-db.sh
 
-sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
-sudo sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
+sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
+sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
+sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg
 
 cd /opt/FDMR-Monitor/
 #sudo rm /opt/FDMR-Monitor/install.sh
 ################
 sudo apt-get install rrdtool -y
-sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
-sudo sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
+sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
+sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
 # Install the required support programs
 pip3 install -r requirements.txt
 pip install pyopenssl --upgrade
 cd /opt/FDMR-Monitor/
 cp /opt/FDMR-Monitor/fdmr-mon_SAMPLE.cfg /opt/FDMR-Monitor/fdmr-mon.cfg
 ###############################
-sudo sed -i "s/PEER_URL =.*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = http:\/\/datafiles.ddns.net:8888\/user.csv/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = user.csv/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/TGID_URL =.*/TGID_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/talkgroup_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
-sudo sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
-sudo sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
-sudo sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy_db.py
-sudo sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
-sudo sed -i "s/root/emqte1/g" /opt/FDMR-Monitor/proxy/proxy.cfg
-sudo sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sed -i "s/PEER_URL =.*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/SUBSCRIBER_URL =.*/SUBSCRIBER_URL = http:\/\/datafiles.ddns.net:8888\/user.csv/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/SUBSCRIBER_FILE =.*/SUBSCRIBER_FILE = user.csv/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/TGID_URL =.*/TGID_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/talkgroup_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sed -i "s/\/freedmr.cfg/\/config\/FreeDMR.cfg/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy_db.py
+sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
+sed -i "s/root/emqte1/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy.cfg
 #################
 cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
@@ -777,11 +777,12 @@ cat > /opt/FDMR-Monitor/templates/main_table.html  <<- "EOF"
 
 EOF
 #
-sudo sed -i "s/Copyright (c) 2016-.*/Copyright (c) <?php \$cdate=date(\"Y\"); if (\$cdate > \"2016\") {\$cdate=\"2016-\".date(\"Y\");} echo \$cdate; ?><br>/g" /var/www/fdmr/*.php
-sudo sed -i "s/meta name=\"description.*/meta name=\"description\" content=\"Copyright (c) 2016-22.The Regents of the K0USY Group. All rights reserved. Version OA4DOA 2022 (v270422)\">/g" /var/www/fdmr/*.php
-sudo sed -i '166 s/hotpink/#ad02fd/g'   /var/www/fdmr/css/styles.php
-sudo sed -i '217 s/color:white/color:black/'  /var/www/fdmr/css/styles.php
-sudo sed -i "251d" /var/www/fdmr/css/styles.php
+sed -i 's/b1eee9/3bb43d/' /var/www/fdmr/css/*.*
+sed -i "s/Copyright (c) 2016-.*/Copyright (c) <?php \$cdate=date(\"Y\"); if (\$cdate > \"2016\") {\$cdate=\"2016-\".date(\"Y\");} echo \$cdate; ?><br>/g" /var/www/fdmr/*.php
+sed -i "s/meta name=\"description.*/meta name=\"description\" content=\"Copyright (c) 2016-22.The Regents of the K0USY Group. All rights reserved. Version OA4DOA 2022 (v270422)\">/g" /var/www/fdmr/*.php
+sed -i '166 s/hotpink/#ad02fd/g'   /var/www/fdmr/css/styles.php
+sed -i '217 s/color:white/color:black/'  /var/www/fdmr/css/styles.php
+sed -i "251d" /var/www/fdmr/css/styles.php
 sed '250 a    <?php echo THEME_COLOR."\\n";?>' -i /var/www/fdmr/css/styles.php
 
 sed '21 a # For custom color, select: pro' -i /opt/FDMR-Monitor/fdmr-mon.cfg
@@ -800,10 +801,10 @@ sed '49 a   $cd4 = strtolower($config["GLOBAL"]["COLOR_BACKGROUND"]);' -i /var/w
 sed '66 a   } elseif ($theme == "pro") {' -i /var/www/fdmr/include/config.php  
 sed '67 a     $tc = "background-image: linear-gradient(to bottom, $cd1 0%, $cd2 100%);color:$cd3;";' -i /var/www/fdmr/include/config.php  
 
-sudo sed -i "s/THEME_COLOR = .*/THEME_COLOR = pro/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-#sudo sed -i "s/PEER_URL = .*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-#sudo sed -i "s/SUBSCRIBER_URL = .*/SUBSCRIBER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-#sudo sed -i "s/TGID_URL = .*/TGID_URL = https:\/\/freedmr.cymru\/talkgroups\/talkgroup_ids_json.php/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/THEME_COLOR = .*/THEME_COLOR = pro/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+#sed -i "s/PEER_URL = .*/PEER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/peer_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+#sed -i "s/SUBSCRIBER_URL = .*/SUBSCRIBER_URL = https:\/\/freedmr-lh.gb7fr.org.uk\/json\/subscriber_ids.json/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+#sed -i "s/TGID_URL = .*/TGID_URL = https:\/\/freedmr.cymru\/talkgroups\/talkgroup_ids_json.php/g" /opt/FDMR-Monitor/fdmr-mon.cfg
 
 python3 mon_db.py --create
 python3 mon_db.py --update
@@ -811,12 +812,12 @@ python3 mon_db.py --update
 systemctl stop apache2
 systemctl disable apache2
 #####################
-sudo sed -i "s/REPORT_NAME =.*/$variable1/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/THEME_COLOR =.*/$variable2/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/COLOR_TEXT =.*/$variable3/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/COLOR_1 =.*/$variable4/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/COLOR_2 =.*/$variable5/g" /opt/FDMR-Monitor/fdmr-mon.cfg
-sudo sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Raspbian Proyect by HP3ICC © <?php \$cdate=date(\"Y\"); if (\$cdate > \"2018\") {\$cdate=\"2018-\".date(\"Y\");} echo \$cdate; ?>\" target=\"_blank\" href=https:\/\/gitlab.com\/hp3icc\/fdmr\/>Proyect: FDMR+<\/a><br>/g" /var/www/fdmr/*.php
+sed -i "s/REPORT_NAME =.*/$variable1/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/THEME_COLOR =.*/$variable2/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/COLOR_TEXT =.*/$variable3/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/COLOR_1 =.*/$variable4/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/COLOR_2 =.*/$variable5/g" /opt/FDMR-Monitor/fdmr-mon.cfg
+sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Raspbian Proyect by HP3ICC © <?php \$cdate=date(\"Y\"); if (\$cdate > \"2018\") {\$cdate=\"2018-\".date(\"Y\");} echo \$cdate; ?>\" target=\"_blank\" href=https:\/\/gitlab.com\/hp3icc\/fdmr\/>Proyect: FDMR+<\/a><br>/g" /var/www/fdmr/*.php
 
 chmod +x /opt/FDMR-Monitor/sysinfo/*
 sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
