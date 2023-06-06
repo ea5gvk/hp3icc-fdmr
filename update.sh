@@ -422,6 +422,7 @@ variable5=$(grep "COLOR_2 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 
 sudo systemctl stop fdmr_mon.service
 sudo systemctl stop proxy.service
+sudo systemctl stop http.server-fdmr.service
 
 ##############################################################
 #                 service update
@@ -835,6 +836,7 @@ sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
 sh /opt/extra-2.sh
 systemctl start fdmr_mon.service
 systemctl start proxy.service
+systemctl start http.server-fdmr.service
 EOFB1
 ######################################################################################################################
 #                                                           Cronedit
