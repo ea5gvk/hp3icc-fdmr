@@ -301,15 +301,17 @@ Description= Proxy Service
 After=multi-user.target
 
 [Service]
-User=root
-Type=simple
-Restart=always
-RestartSec=3
-StandardOutput=null
+#User=root
+#Type=simple
+#Restart=always
+#RestartSec=3
+#StandardOutput=null
 ExecStart=/usr/bin/python3 /opt/FreeDMR/hotspot_proxy_v2.py -c /opt/FreeDMR/proxy.cfg
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
 #########
 sudo cat > /lib/systemd/system/freedmr.service <<- "EOF"
@@ -318,15 +320,18 @@ Description=FreeDmr
 After=multi-user.target
 
 [Service]
-User=root
-Type=simple
-Restart=always
-RestartSec=3
-StandardOutput=null
+#User=root
+#Type=simple
+#Restart=always
+#RestartSec=3
+#StandardOutput=null
 ExecStart=/usr/bin/python3 /opt/FreeDMR/bridge_master.py -c /opt/FreeDMR/config/FreeDMR.cfg -r /opt/FreeDMR/config/rules.py
+Restart=on-failure
+
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
 ###
 sudo cat > /lib/systemd/system/fdmrparrot.service <<- "EOF"
@@ -336,14 +341,16 @@ After=network-online.target syslog.target
 Wants=network-online.target
 
 [Service]
-StandardOutput=null
+#StandardOutput=null
 WorkingDirectory=/opt/FreeDMR
-RestartSec=3
+#RestartSec=3
 ExecStart=/usr/bin/python3 /opt/FreeDMR/playback.py -c /opt/FreeDMR/playback.cfg
-Restart=on-abort
+#Restart=on-abort
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
 #
 rm -r /opt/FreeDMR
@@ -429,17 +436,19 @@ Description=FDMR Monitor
 #Wants=network-online.target
 
 [Service]
-User=root
-Type=simple
-Restart=always
-RestartSec=3
-StandardOutput=null
+#User=root
+#Type=simple
+#Restart=always
+#RestartSec=3
+#StandardOutput=null
 WorkingDirectory=/opt/FDMR-Monitor
 ExecStart=python3 /opt/FDMR-Monitor/monitor.py
-Restart=on-abort
+#Restart=on-abort
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
+
 EOF
 #
 
@@ -863,19 +872,21 @@ Description=PHP http.server.fdmr
 After=network.target
 
 [Service]
-User=root
+#User=root
 #ExecStartPre=/bin/sleep 30
 # Modify for different other port
 ExecStart=php -S 0.0.0.0:80 -t /var/www/fdmr/
+Restart=on-failure
 
 [Install]
 WantedBy=multi-user.target
 EOFH
 
-
 fi
+
 ##########################################  End Update Files   ##############################################################
 sudo systemctl daemon-reload
+
 sudo chmod +x /opt/fdmr-update.sh
 sudo chmod +x /opt/monitor-update.sh
 sudo chmod +x /bin/menu*
