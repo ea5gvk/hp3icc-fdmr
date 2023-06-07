@@ -374,6 +374,7 @@ sed -i "s/VOICE_IDENT:.*/VOICE_IDENT: False/g"  /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/54000/56000/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
@@ -522,6 +523,12 @@ sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy_db.py
 sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
 sed -i "s/root/emqte1/g" /opt/FDMR-Monitor/proxy/proxy.cfg
 sed -i "s/test/selfcare/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sed -i "s/54000/56000/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
+sed -i "s/54000/56000/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sed -i "s/54100/56100/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
+sed -i "s/54100/56100/g" /opt/FDMR-Monitor/proxy/proxy.cfg
+sed -i "s/54000/56000/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sed -i "s/54100/56100/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 #################
 cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
