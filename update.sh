@@ -485,9 +485,9 @@ sed '35 a -->' -i /opt/FDMR-Monitor/html/sysinfo.php
 ####
 sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/html/*.*
 sed -i "s/www\/html/www\/fdmr/g" /opt/FDMR-Monitor/sysinfo/*.*
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/*.*
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/html/css/*.*
-sed -i 's/1100/1200/' /opt/FDMR-Monitor/templates/*.*
+sed -i "s/1100/1200/g" /opt/FDMR-Monitor/html/*.*
+sed -i "s/1100/1200/g" /opt/FDMR-Monitor/html/css/*.*
+sed -i "s/1100/1200/g" /opt/FDMR-Monitor/templates/*.*
 sed -i 's/b1eee9/3bb43d/' /opt/FDMR-Monitor/html/css/*.*
 ####
 sed -i 's/localhost_2-day.png/localhost_1-day.png/' /opt/FDMR-Monitor/html/sysinfo.php
@@ -795,6 +795,7 @@ cat > /opt/FDMR-Monitor/templates/main_table.html  <<- "EOF"
 
 EOF
 #
+sed -i "s/1100/1200/g" /opt/FDMR-Monitor/templates/*.*
 sed -i 's/b1eee9/3bb43d/' /var/www/fdmr/css/*.*
 sed -i "s/Copyright (c) 2016-.*/Copyright (c) <?php \$cdate=date(\"Y\"); if (\$cdate > \"2016\") {\$cdate=\"2016-\".date(\"Y\");} echo \$cdate; ?><br>/g" /var/www/fdmr/*.php
 sed -i "s/meta name=\"description.*/meta name=\"description\" content=\"Copyright (c) 2016-22.The Regents of the K0USY Group. All rights reserved. Version OA4DOA 2022 (v270422)\">/g" /var/www/fdmr/*.php
