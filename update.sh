@@ -74,8 +74,8 @@ sudo systemctl disable mariadb.service ;;
 cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' remove
 cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' remove
 sudo systemctl stop fdmr_mon.service
-sudo systemctl disable fdmr_mon.service
 sudo systemctl stop http.server-fdmr.service
+sudo systemctl disable fdmr_mon.service
 sudo systemctl disable http.server-fdmr.service;; 
 9)
 menu-igate ;;
@@ -86,7 +86,7 @@ done
 exit 0
 EOF
 ###
-chmod +x /bin/menu-fdmr
+chmod +x /bin/menu*
 ####
 if [ -d "/opt/D-APRS" ]
 then
@@ -407,7 +407,7 @@ sudo systemctl daemon-reload
 sudo systemctl start proxy.service
 sudo systemctl start freedmr.service
 sudo systemctl start fdmrparrot.service
-sudo systemctl restart fdmr_mon.service
+#sudo systemctl restart fdmr_mon.service
 ######
 
 
