@@ -900,5 +900,13 @@ sudo systemctl daemon-reload
 sudo chmod +x /opt/fdmr-update.sh
 sudo chmod +x /opt/monitor-update.sh
 sudo chmod +x /bin/menu*
-menu-update
+
+if [ -d "/opt/FreeDMR/" ]
+then
+   menu-update
+else
+bash -c "$(curl -fsSL https://gitlab.com/hp3icc/fdmr/-/raw/main/install.sh)"
+fi
+
+
 
