@@ -321,6 +321,7 @@ sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR/Free
 sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sed -i "s/54000/56000/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sed -i "s/TRY_DOWNLOAD:.*/TRY_DOWNLOAD: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
