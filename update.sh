@@ -375,6 +375,7 @@ sudo sed -i "s/VALIDATE_SERVER_IDS:.*/VALIDATE_SERVER_IDS: False/g" /opt/FreeDMR
 sudo sed -i "s/ALLOW_UNREG_ID:.*/ALLOW_UNREG_ID: True/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/PROXY_CONTROL:.*/PROXY_CONTROL: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 sudo sed -i "s/54000/56000/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
+sudo sed -i "s/TRY_DOWNLOAD:.*/TRY_DOWNLOAD: False/g" /opt/FreeDMR/FreeDMR-SAMPLE.cfg
 
 cp /opt/FreeDMR/FreeDMR-SAMPLE.cfg /opt/FreeDMR-SAMPLE.cfg
 cd /opt/
