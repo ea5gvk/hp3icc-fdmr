@@ -39,28 +39,62 @@ sudo nano /opt/FDMR-Monitor/fdmr-mon.cfg ;;
 4)
 sudo nano /lib/systemd/system/http.server-fdmr.service  && systemctl daemon-reload && systemctl restart http.server-fdmr.service ;;
 5)
-sudo systemctl start mariadb.service
-sudo systemctl enable mariadb.service
-sudo systemctl stop fdmrparrot.service
-sudo systemctl start fdmrparrot.service
-sudo systemctl enable fdmrparrot.service
-sudo systemctl stop proxy.service
-sudo systemctl start proxy.service
-sudo systemctl enable proxy.service
-sudo systemctl stop freedmr.service
+if systemctl status mariadb.service |grep inactive >/dev/null 2>&1
+then sudo systemctl start mariadb.service
+
+fi
+if systemctl status mariadb.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable mariadb.service
+
+fi
+if systemctl status fdmrparrot.service |grep active >/dev/null 2>&1
+then sudo systemctl stop fdmrparrot.service
+
+fi
+if systemctl status proxy.service |grep active >/dev/null 2>&1
+then sudo systemctl stop proxy.service
+
+fi
+if systemctl status freedmr.service |grep active >/dev/null 2>&1
+then sudo systemctl stop freedmr.service
+
+fi
+if systemctl status fdmrparrot.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable fdmrparrot.service
+
+fi
+if systemctl status proxy.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable proxy.service
+
+fi
+if systemctl status freedmr.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable freedmr.service
+
+fi
 sudo systemctl start freedmr.service
-sudo systemctl enable freedmr.service ;;
+sudo systemctl start fdmrparrot.service
+sudo systemctl start proxy.service ;;
 6)
 cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' add
 cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' add
-sudo systemctl start mariadb.service
-sudo systemctl enable mariadb.service
-sudo systemctl stop fdmr_mon.service
-sudo systemctl start fdmr_mon.service 
-sudo systemctl enable fdmr_mon.service
-sudo systemctl stop http.server-fdmr.service
-sudo systemctl start http.server-fdmr.service
-sudo systemctl enable http.server-fdmr.service;;
+if systemctl status mariadb.service |grep inactive >/dev/null 2>&1
+then sudo systemctl start mariadb.service
+
+fi
+if systemctl status mariadb.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable mariadb.service
+
+fi
+if systemctl status http.server-fdmr.service |grep active >/dev/null 2>&1
+then sudo systemctl stop http.server-fdmr.service
+
+fi
+if systemctl status fdmr_mon.service |grep active >/dev/null 2>&1
+then sudo systemctl stop fdmr_mon.service
+
+fi
+sudo systemctl start fdmr_mon.service
+sudo systemctl start http.server-fdmr.service ;;
 7)
 sudo systemctl stop fdmrparrot.service
 sudo systemctl disable fdmrparrot.service
