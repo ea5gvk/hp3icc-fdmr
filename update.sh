@@ -569,12 +569,13 @@ cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
 cp /opt/FDMR-Monitor/proxy/proxy_db.py /opt/FreeDMR/proxy_db.py
 
+#logo
+wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1evvxLOh8uxKYYLoV0aORjDhFeLF42_S_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1evvxLOh8uxKYYLoV0aORjDhFeLF42_S_" -O /opt/FDMR-Monitor/html/img/logo.png && rm -rf /tmp/cookies.txt &&
+
+#favicon.ico
 wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1B-M7QNdf1gLVzbTn-Fi5GVPy6GTXcxJ-' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1B-M7QNdf1gLVzbTn-Fi5GVPy6GTXcxJ-" -O /opt/FDMR-Monitor/html/favicon.ico && rm -rf /tmp/cookies.txt &&
 
 sudo sed '6 a <link rel="shortcut icon" href="/favicon.ico" />' -i /opt/FDMR-Monitor/html/index.php
-wget --load-cookies /tmp/cookies.txt "https://docs.google.com/uc?export=download&confirm=$(wget --quiet --save-cookies /tmp/cookies.txt --keep-session-cookies --no-check-certificate 'https://docs.google.com/uc?export=download&id=1evvxLOh8uxKYYLoV0aORjDhFeLF42_S_' -O- | sed -rn 's/.*confirm=([0-9A-Za-z_]+).*/\1\n/p')&id=1evvxLOh8uxKYYLoV0aORjDhFeLF42_S_" -O /opt/FDMR-Monitor/html/img/logo.png && rm -rf /tmp/cookies.txt &&
-
-
 #
 sudo cat > /opt/FDMR-Monitor/html/buttons.php <<- "EOF"
 <!-- HBMonitor buttons HTML code -->
