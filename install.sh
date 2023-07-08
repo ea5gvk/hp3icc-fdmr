@@ -9,16 +9,21 @@ fi
 
 apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
 
-for app in "${apps[@]}"
-do
-    # Verificar apps
-    if ! dpkg -s "$app" >/dev/null 2>&1; then
-        # app no instalada
-        sudo apt-get install -y "$app"
+# Función para verificar e instalar una aplicación
+check_and_install() {
+    app=$1
+    if ! dpkg -s $app 2>/dev/null | grep -q "Status: install ok installed"; then
+        echo "$app no está instalado. Instalando..."
+        sudo apt-get install -y $app
+        echo "$app instalado correctamente."
     else
-        # app ya instalada
-        echo "$app ya instalada"
+        echo "$app ya está instalado."
     fi
+}
+
+# Verificar e instalar cada aplicación
+for app in "${apps[@]}"; do
+    check_and_install $app
 done
 ######################################################################################################################
 #                                                           Cronedit
@@ -195,17 +200,23 @@ sudo chmod +x /opt/extra-*
 
 apps=("mariadb-server" "php" "libapache2-mod-php" "php-zip" "php-mbstring" "php-cli" "php-common" "php-curl" "php-xml" "php-mysql")
 
-for app in "${apps[@]}"
-do
-    # Verificar apps
-    if ! dpkg -s "$app" >/dev/null 2>&1; then
-        # app no instalada
-        sudo apt-get install -y "$app"
+# Función para verificar e instalar una aplicación
+check_and_install() {
+    app=$1
+    if ! dpkg -s $app 2>/dev/null | grep -q "Status: install ok installed"; then
+        echo "$app no está instalado. Instalando..."
+        sudo apt-get install -y $app
+        echo "$app instalado correctamente."
     else
-        # app ya instalada
-        echo "$app ya instalada"
+        echo "$app ya está instalado."
     fi
+}
+
+# Verificar e instalar cada aplicación
+for app in "${apps[@]}"; do
+    check_and_install $app
 done
+
 systemctl restart mariadb
 systemctl enable mariadb
 #sudo mysql_secure_installation  --host=localhost --port=3306
