@@ -3,10 +3,10 @@ if [[ $EUID -ne 0 ]]; then
 	whiptail --title "FDMR+" --msgbox "Debe ejecutar este script como usuario ROOT" 0 50
 	exit 0
 fi
-######################################
+######################################################################################################################
 (crontab -l; echo "* */1 * * * sync ; echo 3 > /proc/sys/vm/drop_caches >/dev/null 2>&1")|awk '!x[$0]++'|crontab -
 # apt-get upgrade -y
-
+######################################################################################################################
 apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
 
 # Función para verificar e instalar una aplicación
@@ -25,6 +25,27 @@ check_and_install() {
 for app in "${apps[@]}"; do
     check_and_install $app
 done
+#####################################################################################################################
+#                                      rust
+#####################################################################################################################
+#!/bin/bash
+
+if command -v rustc &>/dev/null; then
+  echo "Rust está instalado. Versión:"
+  rustc --version
+else
+  echo "Rust no está instalado. Instalando..."
+  curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > rustup.sh
+  chmod +x rustup.sh
+  ./rustup.sh -y
+  source "$HOME/.cargo/env"
+  rustup update
+  rustup update stable
+  echo "Rust ha sido instalado correctamente. Versión:"
+  rustc --version
+  rm rustup.sh
+fi
+
 ######################################################################################################################
 #                                                           Cronedit
 ######################################################################################################################
