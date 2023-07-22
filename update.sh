@@ -899,6 +899,12 @@ then
    systemctl start proxy.service
    systemctl start http.server-fdmr.service
 fi
+if sudo systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
+then 
+   sh /opt/extra-3.sh
+   systemctl start fdmr_mon2.service
+   systemctl start http.server-fdmr2.service
+fi
 
 EOFB1
 ######################################### FDMR-Monitor2 Update  ###############################################################
@@ -1020,6 +1026,13 @@ then echo "proxy ready"
 else
 sudo systemctl restart proxy.service
 
+fi
+if sudo systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
+then 
+   sh /opt/extra-2.sh
+   systemctl start fdmr_mon.service
+   systemctl start proxy.service
+   systemctl start http.server-fdmr.service
 fi
 if sudo systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
 then 
