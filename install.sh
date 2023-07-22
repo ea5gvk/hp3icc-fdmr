@@ -209,6 +209,7 @@ then
   echo "found file"
 else
   sudo cat > /opt/extra-1.sh <<- "EOF"
+#!/bin/bash
 ######################################################################
 # Coloque en este archivo, cualquier instruccion shell adicional que # 
 # quierre se realice al finalizar la actualizacion.                  #
@@ -223,6 +224,7 @@ then
   echo "found file"
 else
   sudo cat > /opt/extra-2.sh <<- "EOF"
+#!/bin/bash
 ######################################################################
 # Coloque en este archivo, cualquier instruccion shell adicional que # 
 # quierre se realice al finalizar la actualizacion.                  #
@@ -237,6 +239,7 @@ then
   echo "found file"
 else
   sudo cat > /opt/extra-3.sh <<- "EOF"
+#!/bin/bash
 ######################################################################
 # Coloque en este archivo, cualquier instruccion shell adicional que # 
 # quierre se realice al finalizar la actualizacion.                  #
