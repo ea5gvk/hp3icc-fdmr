@@ -1001,7 +1001,7 @@ sed -i "s/ExecStart=.*/ExecStart=python3 \/opt\/FDMR-Monitor2\/monitor.py/g" /op
 sudo cp /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2 /etc/logrotate.d/fdmr_mon2
 
 sudo cp /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service /lib/systemd/system/fdmr_mon2.service
-sudo rm mon.db
+#sudo rm mon.db
 sudo python3 mon_db.py
 
 cat > /lib/systemd/system/http.server-fdmr2.service <<- "EOF"
