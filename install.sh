@@ -894,33 +894,19 @@ sh /opt/extra-1.sh
 sh /opt/extra-2.sh
 ####################################################################
 #monitor2
-sudo cat > /opt/wdp <<- "EOF"
+if [ -f "/opt/wdp2" ]
+then
+   echo "found file"
+else
+cat > /opt/wdp <<- "EOFX"
 #########################################
 # Select number port, FreeDMR Dashboard #
 #########################################
 
 Web-Dashboar-Port:  80
-EOF
+EOFX
+fi
 
-
-apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
-
-# Función para verificar e instalar una aplicación
-check_and_install() {
-    app=$1
-    if ! dpkg -s $app 2>/dev/null | grep -q "Status: install ok installed"; then
-        echo "$app no está instalado. Instalando..."
-        sudo apt-get install -y $app
-        echo "$app instalado correctamente."
-    else
-        echo "$app ya está instalado."
-    fi
-}
-
-# Verificar e instalar cada aplicación
-for app in "${apps[@]}"; do
-    check_and_install $app
-done
 cd /opt
 sudo git clone https://github.com/CS8ABG/FDMR-Monitor.git /opt/FDMR-Monitor2
 cd /opt/FDMR-Monitor2
