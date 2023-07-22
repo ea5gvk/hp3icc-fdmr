@@ -910,14 +910,6 @@ then
 else
   mkdir /var/www/fdmr2
 fi
-sudo cat > /opt/wdp <<- "EOF"
-#########################################
-# Select number port, FreeDMR Dashboard #
-#########################################
-
-Web-Dashboar-Port:  80
-EOF
-
 
 apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
 
