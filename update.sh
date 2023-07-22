@@ -862,6 +862,35 @@ systemctl start http.server-fdmr.service
 EOFB1
 ######################################### FDMR-Monitor2 Update  ###############################################################
 sudo cat > /opt/monitor-update2.sh <<- "EOFB2"
+#!/bin/bash
+if systemctl status http.server-fdmr.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable http.server-fdmr.service
+
+fi
+if systemctl status http.server-fdmr2.service |grep active >/dev/null 2>&1
+then sudo systemctl stop http.server-fdmr2.service
+
+fi
+if systemctl status http.server-fdmr2.service |grep enable >/dev/null 2>&1
+then sudo systemctl disable http.server-fdmr2.service
+
+fi
+if systemctl status fdmr_mon.service |grep active >/dev/null 2>&1
+then sudo systemctl stop fdmr_mon.service
+
+fi
+if systemctl status fdmr_mon.service |grep disable >/dev/null 2>&1
+then sudo systemctl enable fdmr_mon.service
+
+fi
+if systemctl status fdmr_mon2.service |grep active >/dev/null 2>&1
+then sudo systemctl stop fdmr_mon2.service
+
+fi
+if systemctl status fdmr_mon2.service |grep enable >/dev/null 2>&1
+then sudo systemctl disable fdmr_mon2.service
+
+fi
 cd / 
 if [ -d "/opt/FDMR-Monitor2" ]
 then
@@ -959,9 +988,14 @@ WantedBy=multi-user.target
 
 EOF
 systemctl daemon-reload
+if systemctl status proxy.service |grep active >/dev/null 2>&1
+then echo "proxy ready"
+else
+sudo systemctl restart proxy.service
+
+fi
 sh /opt/extra-3.sh
 systemctl start fdmr_mon2.service
-#systemctl start proxy.service
 systemctl start http.server-fdmr2.service
 EOFB2
 ######################################################################################################################
