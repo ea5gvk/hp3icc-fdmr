@@ -436,27 +436,8 @@ variable3=$(grep "COLOR_TEXT =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable4=$(grep "COLOR_1 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable5=$(grep "COLOR_2 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 
-if systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
-then sudo systemctl disable http.server-fdmr2.service
-
-fi
-if ! systemctl status http.server-fdmr.service | grep "service; enabled;" >/dev/null 2>&1; then
-   sudo systemctl enable http.server-fdmr.service
-
-fi
-if systemctl status fdmr_mon2.service |grep "service; enabled;" >/dev/null 2>&1
-then sudo systemctl disable fdmr_mon2.service
-
-fi
-if ! systemctl status fdmr_mon.service | grep "service; enabled;" >/dev/null 2>&1; then
-    sudo systemctl enable fdmr_mon.service
-fi
-if ! systemctl status proxy.service | grep "service; enabled;" >/dev/null 2>&1; then
-   sudo systemctl enable proxy.service
-
-fi
 #####################################
-if systemctl status http.server-fdmr2.service |grep "active" >/dev/null 2>&1
+if systemctl status http.server-fdmr2.service |grep active >/dev/null 2>&1
 then systemctl stop http.server-fdmr2.service
 
 fi
@@ -472,7 +453,7 @@ if systemctl status fdmr_mon.service |grep active >/dev/null 2>&1
 then sudo systemctl stop fdmr_mon.service
 
 fi
-if systemctl status proxy.service |grep "active" >/dev/null 2>&1
+if systemctl status proxy.service |grep active >/dev/null 2>&1
 then sudo systemctl stop proxy.service
 
 fi
@@ -896,45 +877,43 @@ sudo sed -i "s/All rights reserved.<br>.*/All rights reserved.<br><a title=\"Ras
 chmod +x /opt/FDMR-Monitor/sysinfo/*
 sh /opt/FDMR-Monitor/sysinfo/rrd-db.sh
 
-if sudo systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
-then 
-   sh /opt/extra-2.sh
-   systemctl start fdmr_mon.service
-   systemctl start proxy.service
-   systemctl start http.server-fdmr.service
-fi
-if sudo systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
-then 
-   sh /opt/extra-3.sh
-   systemctl start fdmr_mon2.service
-   systemctl start http.server-fdmr2.service
-fi
+systemctl daemon-reload
 
-EOFB1
-######################################### FDMR-Monitor2 Update  ###############################################################
-sudo cat > /opt/monitor-update2.sh <<- "EOFB2"
-#!/bin/bash
-if systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
-then sudo systemctl disable http.server-fdmr.service
+if systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
+then sudo systemctl disable http.server-fdmr2.service
 
 fi
-if ! systemctl status fdmr_mon2.service | grep "service; enabled;" >/dev/null 2>&1; then
-   sudo systemctl enable fdmr_mon2.service
+if ! systemctl status http.server-fdmr.service | grep "service; enabled;" >/dev/null 2>&1; then
+   sudo systemctl enable http.server-fdmr.service
 
 fi
-if systemctl status fdmr_mon.service |grep "service; enabled;" >/dev/null 2>&1
-then sudo systemctl disable fdmr_mon.service
+if systemctl status fdmr_mon2.service |grep "service; enabled;" >/dev/null 2>&1
+then sudo systemctl disable fdmr_mon2.service
 
 fi
-if ! systemctl status fdmr_mon2.service | grep "service; enabled;" >/dev/null 2>&1; then
-    sudo systemctl enable fdmr_mon2.service
+if ! systemctl status fdmr_mon.service | grep "service; enabled;" >/dev/null 2>&1; then
+    sudo systemctl enable fdmr_mon.service
 fi
 if ! systemctl status proxy.service | grep "service; enabled;" >/dev/null 2>&1; then
    sudo systemctl enable proxy.service
 
 fi
-#####################################
-if systemctl status http.server-fdmr.service |grep "active" >/dev/null 2>&1
+##############
+if sudo systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
+then 
+   systemctl start fdmr_mon.service
+   systemctl start proxy.service
+   systemctl start http.server-fdmr.service
+   sh /opt/extra-2.sh
+fi
+
+
+EOFB1
+######################################### FDMR-Monitor2 Update  ###############################################################
+sudo cat > /opt/monitor-update2.sh <<- "EOFB2"
+#!/bin/bash
+
+if systemctl status http.server-fdmr.service |grep active >/dev/null 2>&1
 then systemctl stop http.server-fdmr.service
 
 fi
@@ -950,7 +929,7 @@ if systemctl status fdmr_mon2.service |grep active >/dev/null 2>&1
 then sudo systemctl stop fdmr_mon2.service
 
 fi
-if systemctl status proxy.service |grep "active" >/dev/null 2>&1
+if systemctl status proxy.service |grep active >/dev/null 2>&1
 then sudo systemctl stop proxy.service
 
 fi
@@ -1025,24 +1004,32 @@ WantedBy=multi-user.target
 
 EOF
 systemctl daemon-reload
-if systemctl status proxy.service |grep active >/dev/null 2>&1
-then echo "proxy ready"
-else
-sudo systemctl restart proxy.service
+if systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
+then sudo systemctl disable http.server-fdmr.service
 
 fi
-if sudo systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
-then 
-   sh /opt/extra-2.sh
-   systemctl start fdmr_mon.service
-   systemctl start proxy.service
-   systemctl start http.server-fdmr.service
+if ! systemctl status http.server-fdmr2.service | grep "service; enabled;" >/dev/null 2>&1; then
+   sudo systemctl enable http.server-fdmr2.service
+
 fi
+if systemctl status fdmr_mon.service |grep "service; enabled;" >/dev/null 2>&1
+then sudo systemctl disable fdmr_mon.service
+
+fi
+if ! systemctl status fdmr_mon2.service | grep "service; enabled;" >/dev/null 2>&1; then
+    sudo systemctl enable fdmr_mon2.service
+fi
+if ! systemctl status proxy.service | grep "service; enabled;" >/dev/null 2>&1; then
+   sudo systemctl enable proxy.service
+
+fi
+#####################################
 if sudo systemctl status http.server-fdmr2.service |grep "service; enabled;" >/dev/null 2>&1
 then 
-   sh /opt/extra-3.sh
    systemctl start fdmr_mon2.service
    systemctl start http.server-fdmr2.service
+   systemctl start proxy.service
+   sh /opt/extra-3.sh
 fi
 
 EOFB2
