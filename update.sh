@@ -849,7 +849,7 @@ systemctl start proxy.service
 systemctl start http.server-fdmr.service
 EOFB1
 ######################################### FDMR-Monitor2 Update  ###############################################################
-sudo cat > /opt/monitor-update.sh <<- "EOFB2"
+sudo cat > /opt/monitor-update2.sh <<- "EOFB2"
 cd / 
 if [ -d "/opt/FDMR-Monitor2" ]
 then
