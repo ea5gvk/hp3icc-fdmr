@@ -1,14 +1,14 @@
 # FDMR+
 
-![alt text](https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-SERVER-Install/main/IMG_1942.jpg)
+<img src="https://raw.githubusercontent.com/hp3icc/Easy-FreeDMR-Docker/main/Easy-FreeDMR-Docker.png" width="550" height="450"><img src="https://raw.githubusercontent.com/CS8ABG/FDMR-Monitor/main/screenshot.png" width="550" height="450">
 
-is an excerpt from the emq-TE1ws proyect, focused on new and current sysops who want to install FreeDMR easily, quickly and up-to-date.
+Is an excerpt from the emq-TE1ws proyect, focused on new and current sysops who want to install FreeDMR easily, quickly and up-to-date.
 
-this shell, install FreeDMR Server and FDMR-Monitor
+This shell, install FreeDMR Server,with 2 option Dashboard for select: FDMR-Monitor by OA4DOA Christian and FDMR-Monitor by CS8ABG Bruno , Both Dashboard version Self-Service
 
 #
 
-Shell easy auto install FreeDMR Server version Self-Service without Docker, latest original gitlab hacknix version by G7RZU Simon, with Dashboard by OA4DOA, template mods by WP3JM James & N6DOZ Rudy, Self-Service mods with Dial-TG by IU2NAF Diego and menu by HP3ICC.
+Shell easy auto install FreeDMR Server version Self-Service without Docker, latest original gitlab hacknix version by G7RZU Simon, with Dashboard, template mods by WP3JM James & N6DOZ Rudy, Self-Service mods with Dial-TG by IU2NAF Diego and menu by HP3ICC.
 
 # Important note , 
 
@@ -110,6 +110,10 @@ To integrate your server to the freedmr network, you must contact the telegram g
   * FDMR-Monitor: 
    
    /opt/FDMR-Monitor/fdmr-mon.cfg 
+
+    * FDMR-Monitor2: 
+   
+   /opt/FDMR-Monitor2/fdmr-mon.cfg 
    
   #
   
@@ -134,12 +138,26 @@ To integrate your server to the freedmr network, you must contact the telegram g
   * Web Server
   
    http.server-fdmr.service
+
+  * FDMR-Monitor2: 
+   
+   fdmr_mon2.service
+   
+  * Web Server 2
+  
+   http.server-fdmr2.service
   
  #
   
  # Dashboard Files
  
+ * FDMR-Monitor by OA4DOA
+
  /var/www/fdmr/
+
+* FDMR-Monitor2 by CS8ABG
+
+ /var/www/fdmr2/
 
 #
 
@@ -148,8 +166,10 @@ To integrate your server to the freedmr network, you must contact the telegram g
  * https://gitlab.hacknix.net/hacknix/FreeDMR
  
  * http://www.freedmr.uk/index.php/freedmr-server-install/
+
+ * https://github.com/CS8ABG/FDMR-Monitor/tree/Self_Service
  
-  * https://github.com/yuvelq/FDMR-Monitor/tree/Self_Service
+ * https://github.com/yuvelq/FDMR-Monitor/tree/Self_Service
  
  * https://www.daniloaz.com/es/como-crear-un-usuario-en-mysql-mariadb-y-concederle-permisos-para-una-base-de-datos-desde-la-linea-de-comandos/
  
