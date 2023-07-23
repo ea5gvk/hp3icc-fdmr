@@ -564,6 +564,7 @@ sudo sed -i "s/54100/56100/g"  /opt/FDMR-Monitor/proxy/proxy_db.py
 sudo sed -i "s/54100/56100/g" /opt/FDMR-Monitor/proxy/proxy.cfg
 sudo sed -i "s/54000/56000/g" /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
 sudo sed -i "s/54100/56100/g"  /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py
+sudo sed -i "s/1234567/1234567,1231237,123123701/g" /opt/FDMR-Monitor/proxy/proxy.cfg
 #################
 cp /opt/FDMR-Monitor/proxy/hotspot_proxy_v2.py /opt/FreeDMR/hotspot_proxy_v2.py
 cp /opt/FDMR-Monitor/proxy/proxy.cfg /opt/FreeDMR/proxy.cfg
