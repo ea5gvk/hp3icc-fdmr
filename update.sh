@@ -767,6 +767,106 @@ systemctl start fdmr_mon.service
 systemctl start proxy.service
 systemctl start http.server-fdmr.service
 EOFB1
+######################################### FDMR-Monitor2 Update  ###############################################################
+sudo cat > /opt/monitor-update.sh <<- "EOFB2"
+cd / 
+if [ -d "/opt/FDMR-Monitor2" ]
+then
+   rm -r /opt/FDMR-Monitor2
+ #echo "found file"
+
+fi
+if [ -d "/var/www/fdmr2" ]
+then
+   rm -r /var/www/fdmr2
+ #echo "found file"
+
+fi
+if [ -d "/var/www/fdmr2" ]
+then
+   echo "found file"
+else
+  mkdir /var/www/fdmr2
+fi
+sudo cat > /opt/wdp <<- "EOF"
+#########################################
+# Select number port, FreeDMR Dashboard #
+#########################################
+
+Web-Dashboar-Port:  80
+EOF
+
+
+apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
+
+# Función para verificar e instalar una aplicación
+check_and_install() {
+    app=$1
+    if ! dpkg -s $app 2>/dev/null | grep -q "Status: install ok installed"; then
+        echo "$app no está instalado. Instalando..."
+        sudo apt-get install -y $app
+        echo "$app instalado correctamente."
+    else
+        echo "$app ya está instalado."
+    fi
+}
+
+# Verificar e instalar cada aplicación
+for app in "${apps[@]}"; do
+    check_and_install $app
+done
+cd /opt
+sudo git clone https://github.com/CS8ABG/FDMR-Monitor.git /opt/FDMR-Monitor2
+cd /opt/FDMR-Monitor2
+sudo git checkout Self_Service
+pip3 install -r requirements.txt
+
+sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
+sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
+sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
+
+sed -i "s/with.*/with <a href=\"https:\/\/github.com\/CS8ABG\/FDMR-Monitor\" target=\"_blank\">Mod Dash<\/a> by <a title=\"CS8ABG Dash v23.07\" href=\"http:\/\/www.qrz.com\/db\/CS8ABG\">CS8ABG<\/a> , Proyect: <a href=\"https:\/\/gitlab.com\/hp3icc\/fdmr\/\" target=\"_blank\">FDMR+<\/a><\/div>/g" /opt/FDMR-Monitor2/html/include/footer.php
+sed -i "s/#fff/#d1d1d1/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
+sed -i "s/f8f9fa/d0d0d0/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
+sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /opt/FDMR-Monitor2/html/ssconfunc.php
+#sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /var/www/fdmr2/ssconfunc.php
+sudo cp fdmr-mon_SAMPLE.cfg fdmr-mon.cfg
+sudo chmod 644 fdmr-mon.cfg
+sudo cp /opt/FDMR-Monitor2/html/* /var/www/fdmr2/ -r
+
+#*****
+mv /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2
+mv /opt/FDMR-Monitor2/utils/systemd/fdmr_mon.service /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service
+# \
+sed -i "s/\/.*/\/opt\/FDMR-Monitor2\/log\/fdmr-mon.log {/g" /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2
+sed -i "s/Description=.*/Description=FDMR Monitor2/g" /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service
+sed -i "s/WorkingDirectory=.*/WorkingDirectory=\/opt\/FDMR-Monitor2/g" /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service
+sed -i "s/ExecStart=.*/ExecStart=python3 \/opt\/FDMR-Monitor2\/monitor.py/g" /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service
+
+sudo cp /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2 /etc/logrotate.d/fdmr_mon2
+
+sudo cp /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service /lib/systemd/system/fdmr_mon2.service
+sudo rm mon.db
+sudo python3 mon_db.py
+
+cat > /lib/systemd/system/http.server-fdmr2.service <<- "EOF"
+[Unit]
+Description=PHP http.server.fdmr2
+After=network.target
+
+[Service]
+#User=root
+#ExecStartPre=/bin/sleep 30
+# Modify for different other port
+ExecStart=php -S 0.0.0.0:80 -t /var/www/fdmr2/
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+EOF
+systemctl daemon-reload
+EOFB2
 ######################################################################################################################
 #                                                           Cronedit
 ######################################################################################################################
