@@ -232,6 +232,20 @@ else
 EOF
 # 
 fi
+if [ -f "/opt/extra-3.sh" ]
+then
+  echo "found file"
+else
+  sudo cat > /opt/extra-3.sh <<- "EOF"
+######################################################################
+# Coloque en este archivo, cualquier instruccion shell adicional que # 
+# quierre se realice al finalizar la actualizacion.                  #
+######################################################################
+ 
+  
+EOF
+# 
+fi
 sudo chmod +x /opt/extra-*
 
 #########################
