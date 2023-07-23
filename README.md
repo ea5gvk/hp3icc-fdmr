@@ -161,6 +161,12 @@ To integrate your server to the freedmr network, you must contact the telegram g
 
 #
 
+ # Credits :
+ 
+Special thanks to colleagues: CA5RPY Rodrigo, CS8ABG Bruno, OA4DOA Christian, G7RZU hacknix, for their contributions to the content of this scrip.
+
+#
+
  # Sources :
  
  * https://gitlab.hacknix.net/hacknix/FreeDMR
