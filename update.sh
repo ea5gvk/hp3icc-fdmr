@@ -1,4 +1,6 @@
 #!/bin/bash
+cronedit.sh '*/5 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/graph.sh' remove
+cronedit.sh '*/2 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/cpu.sh' remove
 if [ -f "/opt/wdp2" ]
 then
    echo "found file"
@@ -1031,7 +1033,10 @@ then
    systemctl start proxy.service
    sh /opt/extra-3.sh
 fi
-
+cronedit.sh '*/5 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/graph.sh' remove
+cronedit.sh '*/2 * * * *' 'sh /opt/FDMR-Monitor/sysinfo/cpu.sh' remove
+cronedit.sh '*/5 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/graph.sh' remove
+cronedit.sh '*/2 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/cpu.sh' remove
 EOFB2
 ######################################################################################################################
 #                                                           Cronedit
