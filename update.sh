@@ -64,11 +64,12 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 while : ; do
-choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor OA4DOA" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
+choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
 " 17 50 4 \
 1 " Update FreeDMR " \
-2 " Update FDMR-Monitor  " \
-3 " Menu Principal " 3>&1 1>&2 2>&3)
+2 " Update FDMR-Monitor OA4DOA " \
+3 " Update FDMR-Monitor CS8ABG " \
+4 " Menu Principal " 3>&1 1>&2 2>&3)
 exitstatus=$?
 #on recupere ce choix
 #exitstatus=$?
@@ -84,6 +85,8 @@ menu-up-fdm ;;
 2)
 menu-up-fdmon ;;
 3)
+menu-up-fdmon2 ;;
+4)
 break;
 esac
 done
@@ -145,7 +148,7 @@ while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor OA4DOA" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
 " 17 50 4 \
 1 " shell extra " \
-2 " Iniciar Actualizacion FDMR-Monitor  " \
+2 " Iniciar Actualizacion FDMR-Monitor OA4DOA " \
 3 " Menu Principal " 3>&1 1>&2 2>&3)
 exitstatus=$?
 #on recupere ce choix
@@ -161,6 +164,41 @@ case $choix in
 sudo nano /opt/extra-2.sh && chmod +x /opt/extra* ;;
 2)
 sh /opt/monitor-update.sh ;;
+3)
+break;
+esac
+done
+exit 0
+
+
+EOF
+sudo cat > /bin/menu-up-fdmon2 <<- "EOF"
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
+while : ; do
+choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor CS8ABG" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
+" 17 50 4 \
+1 " shell extra " \
+2 " Iniciar Actualizacion FDMR-Monitor CS8ABG" \
+3 " Menu Principal " 3>&1 1>&2 2>&3)
+exitstatus=$?
+#on recupere ce choix
+#exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    echo "Your chosen option:" $choix
+else
+    echo "You chose cancel."; break;
+fi
+# case : action en fonction du choix
+case $choix in
+1)
+sudo nano /opt/extra-3.sh && chmod +x /opt/extra* ;;
+2)
+sh /opt/monitor-update2.sh ;;
 3)
 break;
 esac
@@ -909,6 +947,10 @@ WantedBy=multi-user.target
 
 EOF
 systemctl daemon-reload
+sh /opt/extra-3.sh
+systemctl start fdmr_mon2.service
+#systemctl start proxy.service
+systemctl start http.server-fdmr2.service
 EOFB2
 ######################################################################################################################
 #                                                           Cronedit
