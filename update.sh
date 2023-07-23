@@ -1,4 +1,16 @@
 #!/bin/bash
+if [ -f "/opt/wdp2" ]
+then
+   echo "found file"
+else
+cat > /opt/wdp <<- "EOFX"
+#########################################
+# Select number port, FreeDMR Dashboard #
+#########################################
+
+Web-Dashboar-Port:  80
+EOFX
+fi
 if [ -f "/opt/extra-1.sh" ]
 then
   echo "found file"
@@ -869,14 +881,6 @@ then
 else
   mkdir /var/www/fdmr2
 fi
-sudo cat > /opt/wdp <<- "EOF"
-#########################################
-# Select number port, FreeDMR Dashboard #
-#########################################
-
-Web-Dashboar-Port:  80
-EOF
-
 
 apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
 
