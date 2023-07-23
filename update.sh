@@ -1,17 +1,4 @@
 #!/bin/bash
-if [ -f "/opt/wdp" ]
-then
-   echo "found file"
-else
-  sudo cat > /opt/wdp <<- "EOF"
-##############################################
-# Select number port, FreeDMR HTTP Dashboard #
-##############################################
-
-Web-Dashboar-Port:  80
-EOF
-fi
-
 cd /
 #
 bash -c "$(curl -fsSL https://gitlab.com/hp3icc/emq-TE1/-/raw/main/menu/menu-fdmr)"
@@ -37,8 +24,9 @@ while : ; do
 choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor OA4DOA" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
 " 17 50 4 \
 1 " Update FreeDMR " \
-2 " Update FDMR-Monitor  " \
-3 " Menu Principal " 3>&1 1>&2 2>&3)
+2 " Update FDMR-Monitor OA4DOA " \
+3 " Update FDMR-Monitor CS8ABG " \
+4 " Menu Principal " 3>&1 1>&2 2>&3)
 exitstatus=$?
 #on recupere ce choix
 #exitstatus=$?
@@ -54,6 +42,8 @@ menu-up-fdm ;;
 2)
 menu-up-fdmon ;;
 3)
+menu-up-fdmon2 ;;
+4)
 break;
 esac
 done
@@ -131,6 +121,41 @@ case $choix in
 sudo nano /opt/extra-2.sh && chmod +x /opt/extra* ;;
 2)
 sh /opt/monitor-update.sh ;;
+3)
+break;
+esac
+done
+exit 0
+
+
+EOF
+sudo cat > /bin/menu-up-fdmon2 <<- "EOF"
+#!/bin/bash
+if [[ $EUID -ne 0 ]]; then
+        whiptail --title "sudo su" --msgbox "requiere ser usuario root , escriba (sudo su) antes de entrar a menu / requires root user, type (sudo su) before entering menu" 0 50
+        exit 0
+fi
+
+while : ; do
+choix=$(whiptail --title "Raspbian Proyect HP3ICC / update FDMR-Monitor CS8ABG" --menu "Nota Importante: antes de iniciar la actualizacion, el proceso de actualizacion borrara por completo todas las configuraciones, al finalizar la actualizacion el servicio se reinniciara automaticamente.
+" 17 50 4 \
+1 " shell extra " \
+2 " Iniciar Actualizacion FDMR-Monitor CS8ABG " \
+3 " Menu Principal " 3>&1 1>&2 2>&3)
+exitstatus=$?
+#on recupere ce choix
+#exitstatus=$?
+if [ $exitstatus = 0 ]; then
+    echo "Your chosen option:" $choix
+else
+    echo "You chose cancel."; break;
+fi
+# case : action en fonction du choix
+case $choix in
+1)
+sudo nano /opt/extra-3.sh && chmod +x /opt/extra* ;;
+2)
+sh /opt/monitor-update2.sh ;;
 3)
 break;
 esac
@@ -351,44 +376,10 @@ variable2=$(grep "THEME_COLOR =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable3=$(grep "COLOR_TEXT =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable4=$(grep "COLOR_1 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
 variable5=$(grep "COLOR_2 =" /opt/FDMR-Monitor/fdmr-mon.cfg)
-##############################################
-#check service
-if systemctl status http.server-fdmr.service |grep active >/dev/null 2>&1
-then sudo systemctl stop http.server-fdmr.service
 
-fi
-if systemctl status http.server-fdmr.service |grep disable >/dev/null 2>&1
-then sudo systemctl enable http.server-fdmr.service
-
-fi
-if systemctl status http.server-fdmr2.service |grep active >/dev/null 2>&1
-then sudo systemctl stop http.server-fdmr2.service
-
-fi
-if systemctl status http.server-fdmr2.service |grep enable >/dev/null 2>&1
-then sudo systemctl disable http.server-fdmr2.service
-
-fi
-if systemctl status fdmr_mon.service |grep active >/dev/null 2>&1
-then sudo systemctl stop fdmr_mon.service
-
-fi
-if systemctl status fdmr_mon.service |grep disable >/dev/null 2>&1
-then sudo systemctl enable fdmr_mon.service
-
-fi
-if systemctl status fdmr_mon2.service |grep active >/dev/null 2>&1
-then sudo systemctl stop fdmr_mon2.service
-
-fi
-if systemctl status fdmr_mon2.service |grep enable >/dev/null 2>&1
-then sudo systemctl disable fdmr_mon2.service
-
-fi
-if systemctl status proxy.service |grep active >/dev/null 2>&1
-then sudo systemctl stop proxy.service
-
-fi
+sudo systemctl stop fdmr_mon.service
+sudo systemctl stop proxy.service
+sudo systemctl stop http.server-fdmr.service
 
 ##############################################################
 #                 service update
@@ -815,40 +806,8 @@ systemctl start proxy.service
 systemctl start http.server-fdmr.service
 EOFB1
 ######################################### FDMR-Monitor2 Update  ###############################################################
-sudo cat > /opt/monitor-update.sh <<- "EOFB2"
-cd /
-if systemctl status http.server-fdmr.service |grep active >/dev/null 2>&1
-then sudo systemctl stop http.server-fdmr.service
-
-fi
-if systemctl status http.server-fdmr.service |grep enable >/dev/null 2>&1
-then sudo systemctl disable http.server-fdmr.service
-
-fi
-if systemctl status http.server-fdmr2.service |grep active >/dev/null 2>&1
-then sudo systemctl stop http.server-fdmr2.service
-
-fi
-if systemctl status http.server-fdmr2.service |grep disable >/dev/null 2>&1
-then sudo systemctl enable http.server-fdmr2.service
-
-fi
-if systemctl status fdmr_mon.service |grep active >/dev/null 2>&1
-then sudo systemctl stop fdmr_mon.service
-
-fi
-if systemctl status fdmr_mon.service |grep enable >/dev/null 2>&1
-then sudo systemctl disable fdmr_mon.service
-
-fi
-if systemctl status fdmr_mon2.service |grep active >/dev/null 2>&1
-then sudo systemctl stop fdmr_mon2.service
-
-fi
-if systemctl status fdmr_mon2.service |grep disable >/dev/null 2>&1
-then sudo systemctl enable fdmr_mon2.service
-
-fi
+sudo cat > /opt/monitor2-update.sh <<- "EOFB2"
+cd / 
 if [ -d "/opt/FDMR-Monitor2" ]
 then
    rm -r /opt/FDMR-Monitor2
@@ -867,6 +826,14 @@ then
 else
   mkdir /var/www/fdmr2
 fi
+sudo cat > /opt/wdp <<- "EOF"
+#########################################
+# Select number port, FreeDMR Dashboard #
+#########################################
+
+Web-Dashboar-Port:  80
+EOF
+
 
 apps=("wget" "git" "sudo" "python3" "python3-pip" "python3-dev" "libffi-dev" "libssl-dev" "cargo" "sed" "default-libmysqlclient-dev" "build-essential")
 
@@ -896,7 +863,7 @@ sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 
-sed -i "s/with.*/with <a href=\"https:\/\/github.com\/CS8ABG\/FDMR-Monitor\" target=\"_blank\">Mod Dash<\/a> by <a title=\"CS8ABG Dash v23.07.23ss\" href=\"http:\/\/www.qrz.com\/db\/CS8ABG\">CS8ABG<\/a> , Proyect: <a href=\"https:\/\/gitlab.com\/hp3icc\/fdmr\/\" target=\"_blank\">FDMR+<\/a><\/div>/g" /opt/FDMR-Monitor2/html/include/footer.php
+sed -i "s/with.*/with <a href=\"https:\/\/github.com\/CS8ABG\/FDMR-Monitor\" target=\"_blank\">Mod Dash<\/a> by <a title=\"CS8ABG Dash v23.07\" href=\"http:\/\/www.qrz.com\/db\/CS8ABG\">CS8ABG<\/a> , Proyect: <a href=\"https:\/\/gitlab.com\/hp3icc\/fdmr\/\" target=\"_blank\">FDMR+<\/a><\/div>/g" /opt/FDMR-Monitor2/html/include/footer.php
 sed -i "s/#fff/#d1d1d1/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
 sed -i "s/f8f9fa/d0d0d0/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
 sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /opt/FDMR-Monitor2/html/ssconfunc.php
@@ -937,6 +904,10 @@ WantedBy=multi-user.target
 
 EOF
 systemctl daemon-reload
+sh /opt/extra-3.sh
+systemctl start fdmr_mon2.service
+systemctl start proxy.service
+systemctl start http.server-fdmr2.service
 EOFB2
 ######################################################################################################################
 #                                                           Cronedit
