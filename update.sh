@@ -1,7 +1,7 @@
 #!/bin/bash
 cronedit.sh '*/5 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/graph.sh' remove
 cronedit.sh '*/2 * * * *' 'sh /etc/freedmr/hbmon/sysinfo/cpu.sh' remove
-if [ -f "/opt/wdp2" ]
+if [ -f "/opt/wdp" ]
 then
    echo "found file"
 else
