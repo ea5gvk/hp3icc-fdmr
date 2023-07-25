@@ -369,13 +369,35 @@ WantedBy=multi-user.target
 
 EOF
 #
-rm -r /opt/FreeDMR
+folders=(
+    "/opt/FreeDMR"
+    "/var/log/FreeDMR"
+)
+
+# Itera sobre la lista de carpetas
+for folder in "${folders[@]}"; do
+    # Verifica si la carpeta existe
+    if [ -d "$folder" ]; then
+        echo "La carpeta $folder existe. Se procederá a eliminarla."
+        # Borrar la carpeta y su contenido de manera recursiva
+        rm -rf "$folder"
+    else
+        echo "La carpeta $folder no existe."
+    fi
+done
+#
 cd /opt
 git clone https://gitlab.hacknix.net/hacknix/FreeDMR.git
 sudo rm /opt/FreeDMR/hotspot_proxy_v2.py
 cd FreeDMR
-mkdir config
-mkdir /var/log/FreeDMR
+if [ ! -d "/opt/FreeDMR/config" ]
+then
+  mkdir -p /opt/FreeDMR/config
+fi
+if [ ! -d "/var/log/FreeDMR" ]
+then
+  mkdir -p /var/log/FreeDMR
+fi
 chmod +x /opt/FreeDMR/install.sh
 ./install.sh
 #
@@ -488,22 +510,23 @@ WantedBy=multi-user.target
 
 EOF
 #
+folders=(
+    "/opt/FDMR-Monitor"
+    "/var/www/fdmr"
+)
 
+# Itera sobre la lista de carpetas
+for folder in "${folders[@]}"; do
+    # Verifica si la carpeta existe
+    if [ -d "$folder" ]; then
+        echo "La carpeta $folder existe. Se procederá a eliminarla."
+        # Borrar la carpeta y su contenido de manera recursiva
+        rm -rf "$folder"
+    else
+        echo "La carpeta $folder no existe."
+    fi
+done
 
-if [ -d "/var/www/fdmr" ];
-then
-   rm -r /var/www/fdmr/
- #echo "found file"
-else
- echo "file not found"
-
-fi
-if [ -d "/opt/FDMR-Monitor" ]
-then
-   rm -r /opt/FDMR-Monitor
- #echo "found file"
-
-fi
 ##
 #FDMR-Monitor
 cd /opt
@@ -937,24 +960,25 @@ then sudo systemctl stop proxy.service
 
 fi
 cd / 
-if [ -d "/opt/FDMR-Monitor2" ]
-then
-   rm -r /opt/FDMR-Monitor2
- #echo "found file"
+folders=(
+    "/opt/FDMR-Monitor2"
+    "/var/www/fdmr2"
+)
 
-fi
-if [ -d "/var/www/fdmr2" ]
-then
-   rm -r /var/www/fdmr2
- #echo "found file"
+# Itera sobre la lista de carpetas
+for folder in "${folders[@]}"; do
+    # Verifica si la carpeta existe
+    if [ -d "$folder" ]; then
+        echo "La carpeta $folder existe. Se procederá a eliminarla."
+        # Borrar la carpeta y su contenido de manera recursiva
+        rm -rf "$folder"
+    else
+        echo "La carpeta $folder no existe."
+    fi
+done
 
-fi
-if [ -d "/var/www/fdmr2" ]
-then
-   echo "found file"
-else
-  mkdir /var/www/fdmr2
-fi
+mkdir /var/www/fdmr2
+
 
 cd /opt
 sudo git clone https://github.com/CS8ABG/FDMR-Monitor.git /opt/FDMR-Monitor2
@@ -962,6 +986,8 @@ cd /opt/FDMR-Monitor2
 sudo git checkout Self_Service
 pip3 install -r requirements.txt
 
+sed -i '72d' /opt/FDMR-Monitor2/html/include/navbar.php
+sed '69 a \                <option value="es">ES</option>' -i /opt/FDMR-Monitor2/html/include/navbar.php
 sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg

@@ -95,20 +95,6 @@ else
  echo "file not found"
 
 fi
-if [ -d "/var/www/fdmr" ];
-then
-   rm -r /var/www/fdmr/
- #echo "found file"
-else
- echo "file not found"
-
-fi
-if [ -d "/opt/FDMR-Monitor" ]
-then
-   rm -r /opt/FDMR-Monitor
- #echo "found file"
-
-fi
 if [ -f "/opt/FreeDMR/config/FreeDMR.cfg" ];
 then
    variable=$(grep "SERVER_ID:" /opt/FreeDMR/config/FreeDMR.cfg | grep -Eo '[0-9]{1,9}')
@@ -120,19 +106,29 @@ if [ -z "$variable" ]
 then variable=0000
 
 fi
-if [ -d "/opt/FreeDMR" ]
-then
-   rm -r /opt/FreeDMR
- #echo "found file"
+###################################
+folders=(
+    "/opt/FDMR-Monitor"
+    "/var/www/fdmr"
+    "/opt/FDMR-Monitor2"
+    "/var/www/fdmr2"
+    "/opt/FreeDMR"
+    "/var/log/FreeDMR"
+)
 
-fi
-if [ -d "/var/log/FreeDMR" ]
-then
-   rm -r /var/log/FreeDMR
- #echo "found file"
-fi
-   mkdir /var/log/FreeDMR
- if [ -f "/bin/menu-fdmr" ];
+# Itera sobre la lista de carpetas
+for folder in "${folders[@]}"; do
+    # Verifica si la carpeta existe
+    if [ -d "$folder" ]; then
+        echo "La carpeta $folder existe. Se procederá a eliminarla."
+        # Borrar la carpeta y su contenido de manera recursiva
+        rm -rf "$folder"
+    else
+        echo "La carpeta $folder no existe."
+    fi
+done
+###############################
+if [ -f "/bin/menu-fdmr" ];
 then
    rm  /bin/menu-fdmr
  #echo "found file"
@@ -141,35 +137,21 @@ else
 
 fi
 ########################
-if [ -d "/var/www" ]
+if [ ! -d "/var/www" ]
 then
-   echo "found file"
-else
-  mkdir /var/www
+  mkdir -p /var/www
 fi
-if [ -d "/var/www/fdmr" ]
+if [ ! -d "/var/www/fdmr" ]
 then
-   echo "found file"
-else
-  mkdir /var/www/fdmr
+  mkdir -p /var/www/fdmr
 fi
-if [ -d "/opt/FDMR-Monitor2" ]
+if [ ! -d "/var/www/fdmr2" ]
 then
-   rm -r /opt/FDMR-Monitor2
- #echo "found file"
-
+  mkdir -p /var/www/fdmr2
 fi
-if [ -d "/var/www/fdmr2" ]
+if [ ! -d "/var/log/FreeDMR" ]
 then
-   rm -r /var/www/fdmr2
- #echo "found file"
-
-fi
-if [ -d "/var/www/fdmr2" ]
-then
-   echo "found file"
-else
-  mkdir /var/www/fdmr2
+  mkdir -p /var/log/FreeDMR
 fi
 ########################
 if [ -f "/opt/obp.txt" ]
@@ -917,6 +899,8 @@ cd /opt/FDMR-Monitor2
 sudo git checkout Self_Service
 pip3 install -r requirements.txt
 
+sed -i '72d' /opt/FDMR-Monitor2/html/include/navbar.php
+sed '69 a \                <option value="es">ES</option>' -i /opt/FDMR-Monitor2/html/include/navbar.php
 sed -i "s/root/emqte1/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/test/selfcare/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
 sed -i "s/PRIVATE_NETWORK = True/PRIVATE_NETWORK = False/g"  /opt/FDMR-Monitor2/fdmr-mon_SAMPLE.cfg
