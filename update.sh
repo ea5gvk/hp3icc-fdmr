@@ -370,21 +370,23 @@ WantedBy=multi-user.target
 EOF
 #
 #!/bin/bash 
-folders=(
-    "/opt/FreeDMR"
-    "/var/log/FreeDMR"
-)
-
-# Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
-    # Verifica si la carpeta existe
+check_and_remove() {
+    folder=$1
     if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
-        # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        echo "Borrando $folder..."
+        sudo rm -rf "$folder"
+        echo "$folder eliminada correctamente."
     else
-        echo "La carpeta $folder no existe."
+        echo "$folder no encontrada."
     fi
+}
+
+# Carpetas a verificar y borrar
+folders=("/opt/FreeDMR" "/var/log/FreeDMR")
+
+# Verificar y borrar cada carpeta
+for folder in "${folders[@]}"; do
+    check_and_remove "$folder"
 done
 #
 cd /opt
@@ -512,23 +514,24 @@ WantedBy=multi-user.target
 EOF
 #
 #!/bin/bash 
-folders=(
-    "/opt/FDMR-Monitor"
-    "/var/www/fdmr"
-)
-
-# Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
-    # Verifica si la carpeta existe
+check_and_remove() {
+    folder=$1
     if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
-        # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        echo "Borrando $folder..."
+        sudo rm -rf "$folder"
+        echo "$folder eliminada correctamente."
     else
-        echo "La carpeta $folder no existe."
+        echo "$folder no encontrada."
     fi
-done
+}
 
+# Carpetas a verificar y borrar
+folders=("/opt/FDMR-Monitor" "/var/www/fdmr")
+
+# Verificar y borrar cada carpeta
+for folder in "${folders[@]}"; do
+    check_and_remove "$folder"
+done
 ##
 #FDMR-Monitor
 cd /opt
@@ -963,21 +966,23 @@ then sudo systemctl stop proxy.service
 fi
 cd /
 #!/bin/bash 
-folders=(
-    "/opt/FDMR-Monitor2"
-    "/var/www/fdmr2"
-)
-
-# Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
-    # Verifica si la carpeta existe
+check_and_remove() {
+    folder=$1
     if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
-        # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        echo "Borrando $folder..."
+        sudo rm -rf "$folder"
+        echo "$folder eliminada correctamente."
     else
-        echo "La carpeta $folder no existe."
+        echo "$folder no encontrada."
     fi
+}
+
+# Carpetas a verificar y borrar
+folders=("/opt/FDMR-Monitor2" "/var/www/fdmr2")
+
+# Verificar y borrar cada carpeta
+for folder in "${folders[@]}"; do
+    check_and_remove "$folder"
 done
 
 mkdir /var/www/fdmr2

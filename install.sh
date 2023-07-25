@@ -107,25 +107,23 @@ then variable=0000
 
 fi
 ###################################
-folders=(
-    "/opt/FDMR-Monitor"
-    "/var/www/fdmr"
-    "/opt/FDMR-Monitor2"
-    "/var/www/fdmr2"
-    "/opt/FreeDMR"
-    "/var/log/FreeDMR"
-)
-
-# Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
-    # Verifica si la carpeta existe
+check_and_remove() {
+    folder=$1
     if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
-        # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        echo "Borrando $folder..."
+        sudo rm -rf "$folder"
+        echo "$folder eliminada correctamente."
     else
-        echo "La carpeta $folder no existe."
+        echo "$folder no encontrada."
     fi
+}
+
+# Carpetas a verificar y borrar
+folders=("/opt/FDMR-Monitor" "/var/www/fdmr" "/opt/FDMR-Monitor2" "/var/www/fdmr2" "/opt/FreeDMR" "/var/log/FreeDMR")
+
+# Verificar y borrar cada carpeta
+for folder in "${folders[@]}"; do
+    check_and_remove "$folder"
 done
 ###############################
 if [ -f "/bin/menu-fdmr" ];
