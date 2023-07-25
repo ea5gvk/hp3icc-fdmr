@@ -369,6 +369,7 @@ WantedBy=multi-user.target
 
 EOF
 #
+#!/bin/bash 
 folders=(
     "/opt/FreeDMR"
     "/var/log/FreeDMR"
@@ -510,6 +511,7 @@ WantedBy=multi-user.target
 
 EOF
 #
+#!/bin/bash 
 folders=(
     "/opt/FDMR-Monitor"
     "/var/www/fdmr"
@@ -959,7 +961,8 @@ if systemctl status proxy.service |grep active >/dev/null 2>&1
 then sudo systemctl stop proxy.service
 
 fi
-cd / 
+cd /
+#!/bin/bash 
 folders=(
     "/opt/FDMR-Monitor2"
     "/var/www/fdmr2"
