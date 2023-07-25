@@ -909,7 +909,15 @@ if ! systemctl status proxy.service | grep "service; enabled;" >/dev/null 2>&1; 
 fi
 ##############
 if sudo systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
-then 
+then
+   variable1=$(grep "Web-Dashboar-Port:" /opt/wdp | grep -Eo '[A.0-9]{1,9}') &&
+   if [ -z "$variable1" ]
+   then variable1=80
+
+   fi &&
+   sudo sed -i "s/ExecStart=.*/ExecStart=php -S 0.0.0.0:$variable1 -t \/var\/www\/fdmr\//g"  /lib/systemd/system/http.server-fdmr.service &&
+   sudo sed -i "s/ExecStart=.*/ExecStart=php -S 0.0.0.0:$variable1 -t \/var\/www\/fdmr2\//g"  /lib/systemd/system/http.server-fdmr2.service &&
+   systemctl daemon-reload && 
    systemctl start fdmr_mon.service
    systemctl start proxy.service
    systemctl start http.server-fdmr.service
@@ -1012,7 +1020,14 @@ Restart=on-failure
 WantedBy=multi-user.target
 
 EOF
-systemctl daemon-reload
+variable1=$(grep "Web-Dashboar-Port:" /opt/wdp | grep -Eo '[A.0-9]{1,9}') &&
+if [ -z "$variable1" ]
+then variable1=80
+
+fi &&
+sudo sed -i "s/ExecStart=.*/ExecStart=php -S 0.0.0.0:$variable1 -t \/var\/www\/fdmr\//g"  /lib/systemd/system/http.server-fdmr.service &&
+sudo sed -i "s/ExecStart=.*/ExecStart=php -S 0.0.0.0:$variable1 -t \/var\/www\/fdmr2\//g"  /lib/systemd/system/http.server-fdmr2.service &&
+systemctl daemon-reload &&
 if systemctl status http.server-fdmr.service |grep "service; enabled;" >/dev/null 2>&1
 then sudo systemctl disable http.server-fdmr.service
 
