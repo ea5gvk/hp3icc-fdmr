@@ -951,9 +951,14 @@ if [ -d "/opt/FDMR-Monitor2" ]
 then
    sudo rm -rf /opt/FDMR-Monitor2
 fi
-
-mkdir /var/www/fdmr2
-
+if [ ! -d "/var/www" ]
+then
+   mkdir -p /var/www
+fi
+if [ ! -d "/var/www/fdmr2" ]
+then
+   mkdir -p /var/www/fdmr2
+fi
 
 cd /opt
 sudo git clone https://github.com/CS8ABG/FDMR-Monitor.git /opt/FDMR-Monitor2
