@@ -107,24 +107,31 @@ then variable=0000
 
 fi
 ###################################
-check_and_remove() {
-    folder=$1
-    if [ -d "$folder" ]; then
-        echo "Borrando $folder..."
-        sudo rm -rf "$folder"
-        echo "$folder eliminada correctamente."
-    else
-        echo "$folder no encontrada."
-    fi
-}
 
-# Carpetas a verificar y borrar
-folders=("/opt/FDMR-Monitor" "/var/www/fdmr" "/opt/FDMR-Monitor2" "/var/www/fdmr2" "/opt/FreeDMR" "/var/log/FreeDMR")
-
-# Verificar y borrar cada carpeta
-for folder in "${folders[@]}"; do
-    check_and_remove "$folder"
-done
+if [ -d "/var/log/FreeDMR" ]
+then
+   sudo rm -rf /var/log/FreeDMR
+fi
+if [ -d "/opt/FreeDMR" ]
+then
+   sudo rm -rf /opt/FreeDMR
+fi
+if [ -d "/var/www/fdmr2" ]
+then
+   sudo rm -rf /var/www/fdmr2
+fi
+if [ -d "/opt/FDMR-Monitor2" ]
+then
+   sudo rm -rf /opt/FDMR-Monitor2
+fi
+if [ -d "/var/www/fdmr" ]
+then
+   sudo rm -rf /var/www/fdmr
+fi
+if [ -d "/opt/FDMR-Monitor" ]
+then
+   sudo rm -rf /opt/FDMR-Monitor
+fi
 ###############################
 if [ -f "/bin/menu-fdmr" ];
 then
