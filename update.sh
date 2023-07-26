@@ -1079,6 +1079,7 @@ EOFB2
 #                                                           Cronedit
 ######################################################################################################################
 cat > /usr/local/bin/cronedit.sh <<- "EOFC1"
+#!/bin/bash
 cronjob_editor () {
 # usage: cronjob_editor '<interval>' '<command>' <add|remove>
 
