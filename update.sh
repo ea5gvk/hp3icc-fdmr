@@ -370,20 +370,20 @@ WantedBy=multi-user.target
 EOF
 #
 #!/bin/bash 
-folders=(
+variable3=(
     "/opt/FreeDMR"
     "/var/log/FreeDMR"
 )
 
 # Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
+for variable3 in "${variable3[@]}"; do
     # Verifica si la carpeta existe
-    if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
+    if [ -d "$variable3" ]; then
+        echo "La carpeta $variable3 existe. Se procederá a eliminarla."
         # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        rm -rf "$variable3"
     else
-        echo "La carpeta $folder no existe."
+        echo "La carpeta $variable3 no existe."
     fi
 done
 #
@@ -512,20 +512,20 @@ WantedBy=multi-user.target
 EOF
 #
 #!/bin/bash 
-folders=(
+variable3s=(
     "/opt/FDMR-Monitor"
     "/var/www/fdmr"
 )
 
 # Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
+for variable3 in "${variable3s[@]}"; do
     # Verifica si la carpeta existe
-    if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
+    if [ -d "$variable3" ]; then
+        echo "La carpeta $variable3 existe. Se procederá a eliminarla."
         # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        rm -rf "$variable3"
     else
-        echo "La carpeta $folder no existe."
+        echo "La carpeta $variable3 no existe."
     fi
 done
 
@@ -963,20 +963,20 @@ then sudo systemctl stop proxy.service
 fi
 cd /
 #!/bin/bash 
-folders=(
+variable3s=(
     "/opt/FDMR-Monitor2"
     "/var/www/fdmr2"
 )
 
 # Itera sobre la lista de carpetas
-for folder in "${folders[@]}"; do
+for variable3 in "${variable3s[@]}"; do
     # Verifica si la carpeta existe
-    if [ -d "$folder" ]; then
-        echo "La carpeta $folder existe. Se procederá a eliminarla."
+    if [ -d "$variable3" ]; then
+        echo "La carpeta $variable3 existe. Se procederá a eliminarla."
         # Borrar la carpeta y su contenido de manera recursiva
-        rm -rf "$folder"
+        rm -rf "$variable3"
     else
-        echo "La carpeta $folder no existe."
+        echo "La carpeta $variable3 no existe."
     fi
 done
 
