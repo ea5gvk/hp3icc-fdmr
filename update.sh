@@ -370,13 +370,13 @@ WantedBy=multi-user.target
 EOF
 #
 #!/bin/bash 
-variable3=(
+variable3s=(
     "/opt/FreeDMR"
     "/var/log/FreeDMR"
 )
 
 # Itera sobre la lista de carpetas
-for variable3 in "${variable3[@]}"; do
+for variable3 in "${variable3s[@]}"; do
     # Verifica si la carpeta existe
     if [ -d "$variable3" ]; then
         echo "La carpeta $variable3 existe. Se procederá a eliminarla."
