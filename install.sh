@@ -50,6 +50,7 @@ fi
 #                                                           Cronedit
 ######################################################################################################################
 cat > /usr/local/bin/cronedit.sh <<- "EOF"
+#!/bin/bash
 cronjob_editor () {
 # usage: cronjob_editor '<interval>' '<command>' <add|remove>
 
@@ -915,6 +916,25 @@ sed -i "s/#fff/#d1d1d1/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte
 sed -i "s/f8f9fa/d0d0d0/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
 sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /opt/FDMR-Monitor2/html/ssconfunc.php
 #sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /var/www/fdmr2/ssconfunc.php
+
+if [ ! -f "/opt/FDMR-Monitor2/html/flags/314.png" ]
+then
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/314.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/315.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/318.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/319.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/320.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/321.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/322.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/323.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/324.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/325.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/326.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/327.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/328.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/329.png
+fi
+
 sudo cp fdmr-mon_SAMPLE.cfg fdmr-mon.cfg
 sudo chmod 644 fdmr-mon.cfg
 sudo cp /opt/FDMR-Monitor2/html/* /var/www/fdmr2/ -r
