@@ -986,10 +986,23 @@ sed -i "s/f8f9fa/d0d0d0/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlt
 sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /opt/FDMR-Monitor2/html/ssconfunc.php
 #sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /var/www/fdmr2/ssconfunc.php
 
-
-#source_file="/opt/FDMR-Monitor2/html/flags/310.png
-
-
+if [ ! -f "/opt/FDMR-Monitor2/html/flags/314.png" ]
+then
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/314.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/315.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/318.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/319.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/320.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/321.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/322.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/323.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/324.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/325.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/326.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/327.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/328.png
+   cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/329.png
+fi
 
 #*****
 mv /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2
