@@ -985,6 +985,21 @@ sed -i "s/#fff/#d1d1d1/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte
 sed -i "s/f8f9fa/d0d0d0/g"  /opt/FDMR-Monitor2/html/plugins/adminlte/css/adminlte.min.css
 sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /opt/FDMR-Monitor2/html/ssconfunc.php
 #sed -i "s/configFile =.*/configFile = '\/opt\/FDMR-Monitor2\/fdmr-mon.cfg';/g" /var/www/fdmr2/ssconfunc.php
+
+#!/bin/bash
+
+# Source file path
+source_file="/opt/FDMR-Monitor2/html/flags/310.png"
+
+# Destination folder path
+destination_folder="/opt/FDMR-Monitor2/html/flags/"
+
+# Loop to copy and rename files from 311.png to 329.png
+for i in {311..329}; do
+    destination_file="${destination_folder}${i}.png"
+    cp "$source_file" "$destination_file"
+done
+
 sudo cp fdmr-mon_SAMPLE.cfg fdmr-mon.cfg
 sudo chmod 644 fdmr-mon.cfg
 sudo cp /opt/FDMR-Monitor2/html/* /var/www/fdmr2/ -r
