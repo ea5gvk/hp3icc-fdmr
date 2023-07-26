@@ -1004,6 +1004,10 @@ then
    cp /opt/FDMR-Monitor2/html/flags/310.png /opt/FDMR-Monitor2/html/flags/329.png
 fi
 
+sudo cp fdmr-mon_SAMPLE.cfg fdmr-mon.cfg
+sudo chmod 644 fdmr-mon.cfg
+sudo cp /opt/FDMR-Monitor2/html/* /var/www/fdmr2/ -r
+
 #*****
 mv /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon /opt/FDMR-Monitor2/utils/logrotate/fdmr_mon2
 mv /opt/FDMR-Monitor2/utils/systemd/fdmr_mon.service /opt/FDMR-Monitor2/utils/systemd/fdmr_mon2.service
